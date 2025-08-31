@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QSurfaceFormat glFormat;
     glFormat.setRenderableType(QSurfaceFormat::OpenGL);
     glFormat.setProfile(QSurfaceFormat::CoreProfile);
-    glFormat.setVersion(4,3);
+    glFormat.setVersion(4,1);
     formats.push_back(glFormat);
     // Find out which version we support
     QSurfaceFormat *format = getFirstSupported(formats);

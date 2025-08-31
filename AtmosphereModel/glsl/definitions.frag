@@ -1,4 +1,4 @@
-// ÒÔÏÂdefine±ãÓÚÀí½âÊı×Ö±³ºóµÄº¬Òå
+// ä»¥ä¸‹defineä¾¿äºç†è§£æ•°å­—èƒŒåçš„å«ä¹‰
 #define Length float
 #define Wavelength	float
 #define Angle	 float
@@ -47,11 +47,11 @@
 #define ScatteringDensityTexture sampler3D
 #define IrradianceTexture sampler2D
 
-const Length m = 1.0;//Ã×
-const Wavelength nm = 1.0;//ÄÉÃ×
-const Angle rad = 1.0;//»¡¶È
-const SolidAngle sr = 1.0;//Á¢Ìå»¡¶È
-const Power watt = 1.0;//ÍßÌØ
+const Length m = 1.0;//ç±³
+const Wavelength nm = 1.0;//çº³ç±³
+const Angle rad = 1.0;//å¼§åº¦
+const SolidAngle sr = 1.0;//ç«‹ä½“å¼§åº¦
+const Power watt = 1.0;//ç“¦ç‰¹
 
 const float PI = 3.14159265358979323846;
 
@@ -68,7 +68,7 @@ const SpectralRadiance watt_per_square_meter_per_sr_per_nm =
 const SpectralRadianceDensity watt_per_cubic_meter_per_sr_per_nm =
     watt / (m3 * sr * nm);
 
-struct DensityProfileLayer {//´óÆø²ãÃÜ¶ÈÆÊÃæ
+struct DensityProfileLayer {//å¤§æ°”å±‚å¯†åº¦å‰–é¢
 	Length width;
 	Number exp_term;
 	InverseLength exp_scale;
@@ -80,33 +80,33 @@ struct DensityProfile {
 	DensityProfileLayer layers[2];
 };
 
-struct AtmosphereParameters {//´óÆø²ã²ÎÊıÄ£ĞÍ
-	// ´óÆø²ã¶¥²¿µÄÌ«Ñô·øÕÕ¶È
+struct AtmosphereParameters {//å¤§æ°”å±‚å‚æ•°æ¨¡å‹
+	// å¤§æ°”å±‚é¡¶éƒ¨çš„å¤ªé˜³è¾ç…§åº¦
 	IrradianceSpectrum solar_irradiance;
-	// Ì«Ñô½Ç°ë¾¶
+	// å¤ªé˜³è§’åŠå¾„
   	Angle sun_angular_radius;
-  	// ĞÇÇòÖĞĞÄµ½´óÆø²ãµ×²¿µÄ¾àÀë,¼´µØÇò°ë¾¶
+  	// æ˜Ÿçƒä¸­å¿ƒåˆ°å¤§æ°”å±‚åº•éƒ¨çš„è·ç¦»,å³åœ°çƒåŠå¾„
   	Length bottom_radius;
-  	// ĞÇÇòÖĞĞÄµ½´óÆø²ã¶¥²¿µÄ¾àÀë
+  	// æ˜Ÿçƒä¸­å¿ƒåˆ°å¤§æ°”å±‚é¡¶éƒ¨çš„è·ç¦»
   	Length top_radius;
-  	// ¿ÕÆø·Ö×ÓµÄÃÜ¶È·Ö²¼,[0,1]
+  	// ç©ºæ°”åˆ†å­çš„å¯†åº¦åˆ†å¸ƒ,[0,1]
   	DensityProfile rayleigh_density;
-  	// º£°ÎÎªh´¦µÄrayleighÉ¢ÉäÏµÊı = rayleigh_scattering * rayleigh_density
+  	// æµ·æ‹”ä¸ºhå¤„çš„rayleighæ•£å°„ç³»æ•° = rayleigh_scattering * rayleigh_density
   	ScatteringSpectrum rayleigh_scattering;
-  	// ÆøÈÜ½ºµÄÃÜ¶ÈÆÊÃæ,[0,1]
+  	// æ°”æº¶èƒ¶çš„å¯†åº¦å‰–é¢,[0,1]
   	DensityProfile mie_density;
-	// mieÉ¢ÉäÏµÊı = mie_scattering * mie_density
+	// mieæ•£å°„ç³»æ•° = mie_scattering * mie_density
   	ScatteringSpectrum mie_scattering;
-  	// ÆøÈÜ½ºµÄÏû¹âÏµÊı = mie_extinction * mie_density
+  	// æ°”æº¶èƒ¶çš„æ¶ˆå…‰ç³»æ•° = mie_extinction * mie_density
   	ScatteringSpectrum mie_extinction;
-  	// ÆøÈÜ½ºµÄCornette-ShanksÏàÎ»º¯ÊıÖĞµÄ·Ç¶Ô³Æ²ÎÊı
+  	// æ°”æº¶èƒ¶çš„Cornette-Shanksç›¸ä½å‡½æ•°ä¸­çš„éå¯¹ç§°å‚æ•°
   	Number mie_phase_function_g;
-  	// ÎüÊÕ¹âÏßµÄ¿ÕÆø·Ö×ÓµÄÃÜ¶È·Ö²¼,[0,1]
+  	// å¸æ”¶å…‰çº¿çš„ç©ºæ°”åˆ†å­çš„å¯†åº¦åˆ†å¸ƒ,[0,1]
   	DensityProfile absorption_density;
-  	// ÎüÊÕ¹âÏßµÄ¿ÕÆøÏû¹âÏµÊı = absorption_extinction * absorption_density
+  	// å¸æ”¶å…‰çº¿çš„ç©ºæ°”æ¶ˆå…‰ç³»æ•° = absorption_extinction * absorption_density
   	ScatteringSpectrum absorption_extinction;
-  	// µØÃæµÄÆ½¾ù·´ÕÕÂÊ(·´ÉäÏµÊı)
+  	// åœ°é¢çš„å¹³å‡åç…§ç‡(åå°„ç³»æ•°)
   	DimensionlessSpectrum ground_albedo;
-  	// Ì«ÑôÌì×î´óÌì¶¥½ÇµÄcosÖµ(cosÒò´Ë×îĞ¡)£¬ÓÃÓÚºóÃæ´óÆøÉ¢ÉäµÄÔ¤¼ÆËã
+  	// å¤ªé˜³å¤©æœ€å¤§å¤©é¡¶è§’çš„coså€¼(coså› æ­¤æœ€å°)ï¼Œç”¨äºåé¢å¤§æ°”æ•£å°„çš„é¢„è®¡ç®—
   	Number mu_s_min;
 };

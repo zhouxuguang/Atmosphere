@@ -23,7 +23,7 @@ Rendering
 */
 
 /**
- * ÒÔÏÂ¼¸¸öclampº¯ÊıÓÃÒÔÏŞÖÆÊıÖµÔÚÆä¶ÔÓ¦µÄÊıÖµÓòÄÚ
+ * ä»¥ä¸‹å‡ ä¸ªclampå‡½æ•°ç”¨ä»¥é™åˆ¶æ•°å€¼åœ¨å…¶å¯¹åº”çš„æ•°å€¼åŸŸå†…
  */
 
 Number ClampCosine(Number mu){
@@ -46,66 +46,66 @@ Length SafeSqrt( Area a ){
 }
 
 /**
- * ¹¦ÄÜ:
- *  ÓÃÇó¸ù¹«Ê½Çó½â¶şÔªÒ»´Î·½³Ìx^2+2urx+r^2-t^2=0
- *  ÆäÖĞu(¼´ÏÂÃæµÄmu)ÊÇÊÓÏßÌì¶¥½ÇµÄcosÖµ,¶øt(¼´ÏÂÃæµÄtop_radius)ÊÇ´óÆø²ã×îÍâ²ã°ë¾¶
- *  rÊÇÊÓµãÎ»ÖÃÏòÁ¿µÄz·ÖÁ¿,Çó½âµÄ¸ùÊÇÊÓµãpÑØÊÓÏßµ½´óÆø²ã¶¥²ãµÄ¾àÀë
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆøÄ£ĞÍ²ÎÊı(ÆäÖĞtop_radiusÒªÓÃµ½),rÎªÊÓµã¸ß¶È,muÊÇÊÓÏßÌì¶¥½ÇµÄcosÖµ
+ * åŠŸèƒ½:
+ *  ç”¨æ±‚æ ¹å…¬å¼æ±‚è§£äºŒå…ƒä¸€æ¬¡æ–¹ç¨‹x^2+2urx+r^2-t^2=0
+ *  å…¶ä¸­u(å³ä¸‹é¢çš„mu)æ˜¯è§†çº¿å¤©é¡¶è§’çš„coså€¼,è€Œt(å³ä¸‹é¢çš„top_radius)æ˜¯å¤§æ°”å±‚æœ€å¤–å±‚åŠå¾„
+ *  ræ˜¯è§†ç‚¹ä½ç½®å‘é‡çš„zåˆ†é‡,æ±‚è§£çš„æ ¹æ˜¯è§†ç‚¹pæ²¿è§†çº¿åˆ°å¤§æ°”å±‚é¡¶å±‚çš„è·ç¦»
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”æ¨¡å‹å‚æ•°(å…¶ä¸­top_radiusè¦ç”¨åˆ°),rä¸ºè§†ç‚¹é«˜åº¦,muæ˜¯è§†çº¿å¤©é¡¶è§’çš„coså€¼
  **/
 Length DistanceToTopAtmosphereBoundary( IN(AtmosphereParameters)atmosphere,
 					Length r, Number mu ){
-	Area discriminant = r*r*(mu*mu-1.0)+atmosphere.top_radius*atmosphere.top_radius;//ÅĞ±ğÊ½
-	return(ClampDistance( -r * mu + SafeSqrt( discriminant ) ) ); /* ÕâÀïÊÇ·½³Ì½âÖĞ"+"µÄÄÇ¸ö¸ù */
+	Area discriminant = r*r*(mu*mu-1.0)+atmosphere.top_radius*atmosphere.top_radius;//åˆ¤åˆ«å¼
+	return(ClampDistance( -r * mu + SafeSqrt( discriminant ) ) ); /* è¿™é‡Œæ˜¯æ–¹ç¨‹è§£ä¸­"+"çš„é‚£ä¸ªæ ¹ */
 }
 
 /**
- * ¹¦ÄÜ:
- *  Óëº¯ÊıDistanceToTopAtmosphereBoundaryÀàËÆ
- *  ²»¹ıÕâÀï¼ÆËãµÄÊÇÊÓµãÑØÊÓÏß·½Ïòµ½µØÇò±íÃæ½»µãµÄ¾àÀë
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆøÄ£ĞÍ²ÎÊı(ÆäÖĞtop_radiusÒªÓÃµ½),rÎªÊÓµã¸ß¶È,muÊÇÊÓÏßÌì¶¥½ÇµÄcosÖµ
+ * åŠŸèƒ½:
+ *  ä¸å‡½æ•°DistanceToTopAtmosphereBoundaryç±»ä¼¼
+ *  ä¸è¿‡è¿™é‡Œè®¡ç®—çš„æ˜¯è§†ç‚¹æ²¿è§†çº¿æ–¹å‘åˆ°åœ°çƒè¡¨é¢äº¤ç‚¹çš„è·ç¦»
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”æ¨¡å‹å‚æ•°(å…¶ä¸­top_radiusè¦ç”¨åˆ°),rä¸ºè§†ç‚¹é«˜åº¦,muæ˜¯è§†çº¿å¤©é¡¶è§’çš„coså€¼
  **/
 Length DistanceToBottomAtmosphereBoundary( IN(AtmosphereParameters)atmosphere,
 					   Length r, Number mu ){
 	Area discriminant = r*r*(mu*mu-1.0)+atmosphere.bottom_radius*atmosphere.bottom_radius;
-	return(ClampDistance( -r * mu - SafeSqrt( discriminant ) ) ); /* ÕâÀïÊÇ·½³Ì½âÖĞ"-"µÄÄÇ¸ö¸ù */
+	return(ClampDistance( -r * mu - SafeSqrt( discriminant ) ) ); /* è¿™é‡Œæ˜¯æ–¹ç¨‹è§£ä¸­"-"çš„é‚£ä¸ªæ ¹ */
 }
 
 /**
- * ¹¦ÄÜ:
- *  ÉèiÎªÊÓµãÑØÊÓÏß·½ÏòÓëµØÇò±íÃæµÄ½»µã,ÊÓµãËùÔÚÎªp
- *  Ôòµ±¶şÔªÒ»´Î·½³Ìd^2+2rud+r^2-t^2=0ÓĞ½âd>=0Ê±,ÉäÏßpiÓëµØÃæÓĞ½»µã
- *  ¸Ã·½³ÌÒâÒåÇ°ÃæÒÑ¾­ËµÃ÷,ÇóµÃÊÇ¾àÀë,¶ø¾àÀëÒ»¶¨>=0,¹ÊÖ»Ğè¸Ã·½³ÌÓĞ½â£¬ÄÇÃ´¾ÍÓĞ½»µã
- *  Õâ¸öº¯ÊıÅĞ¶ÏÍ¨¹ı·½³ÌµÄÅĞ±ğÊ½ÅĞ¶Ï·½³ÌÊÇ·ñÓĞ½â
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆøÄ£ĞÍ²ÎÊı(ÆäÖĞtop_radiusÒªÓÃµ½),rÎªÊÓµã¸ß¶È,muÊÇÊÓÏßÌì¶¥½ÇµÄcosÖµ
+ * åŠŸèƒ½:
+ *  è®¾iä¸ºè§†ç‚¹æ²¿è§†çº¿æ–¹å‘ä¸åœ°çƒè¡¨é¢çš„äº¤ç‚¹,è§†ç‚¹æ‰€åœ¨ä¸ºp
+ *  åˆ™å½“äºŒå…ƒä¸€æ¬¡æ–¹ç¨‹d^2+2rud+r^2-t^2=0æœ‰è§£d>=0æ—¶,å°„çº¿piä¸åœ°é¢æœ‰äº¤ç‚¹
+ *  è¯¥æ–¹ç¨‹æ„ä¹‰å‰é¢å·²ç»è¯´æ˜,æ±‚å¾—æ˜¯è·ç¦»,è€Œè·ç¦»ä¸€å®š>=0,æ•…åªéœ€è¯¥æ–¹ç¨‹æœ‰è§£ï¼Œé‚£ä¹ˆå°±æœ‰äº¤ç‚¹
+ *  è¿™ä¸ªå‡½æ•°åˆ¤æ–­é€šè¿‡æ–¹ç¨‹çš„åˆ¤åˆ«å¼åˆ¤æ–­æ–¹ç¨‹æ˜¯å¦æœ‰è§£
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”æ¨¡å‹å‚æ•°(å…¶ä¸­top_radiusè¦ç”¨åˆ°),rä¸ºè§†ç‚¹é«˜åº¦,muæ˜¯è§†çº¿å¤©é¡¶è§’çš„coså€¼
  **/
 bool RayIntersectsGround( IN(AtmosphereParameters)atmosphere,
 			  Length r, Number mu ){
-	// Ìì¶¥½Ç´óÓÚ90¶È(cosÖµ<0) ÇÒ ÅĞ±ğÊ½>=0
+	// å¤©é¡¶è§’å¤§äº90åº¦(coså€¼<0) ä¸” åˆ¤åˆ«å¼>=0
 	return(mu < 0.0 && r * r * (mu * mu - 1.0) +
 	       atmosphere.bottom_radius * atmosphere.bottom_radius >= 0.0 * m2);
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¸ù¾İ¸ø¶¨¸ß¶È¼ÆËãÃÜ¶È,ÃÜ¶È='exp_term'*exp('exp_scale' * h)+'linear_term'*h+'constant_term'
- * ´«Èë²ÎÊı£º
- *  layer´óÆø²ã,altitudeÎªº£°Î¸ß¶È
+ * åŠŸèƒ½:
+ *  æ ¹æ®ç»™å®šé«˜åº¦è®¡ç®—å¯†åº¦,å¯†åº¦='exp_term'*exp('exp_scale' * h)+'linear_term'*h+'constant_term'
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  layerå¤§æ°”å±‚,altitudeä¸ºæµ·æ‹”é«˜åº¦
  **/
 Number GetLayerDensity( IN(DensityProfileLayer)layer, Length altitude ){
-	/* ÃÜ¶È¼ÆËã'exp_term' * exp('exp_scale' * h) + 'linear_term' * h + 'constant_term' */
+	/* å¯†åº¦è®¡ç®—'exp_term' * exp('exp_scale' * h) + 'linear_term' * h + 'constant_term' */
 	Number density = layer.exp_term * exp( layer.exp_scale * altitude ) +
 			 layer.linear_term * altitude + layer.constant_term;
 	return(clamp( density, Number( 0.0 ), Number( 1.0 ) ) );
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¸ù¾İ¸ø¶¨º£°Î¸ß¶È£¬¼ÆËãÏàÓ¦µÄÃÜ¶ÈÖµ£¬Õû¸ö´óÆø²ãµÄÃÜ¶ÈÄ£ĞÍÓĞÁ½²ã
- * ´«Èë²ÎÊı£º
- *  profileÎª´óÆø²ã,altitudeÎªº£°Î¸ß¶È
+ * åŠŸèƒ½:
+ *  æ ¹æ®ç»™å®šæµ·æ‹”é«˜åº¦ï¼Œè®¡ç®—ç›¸åº”çš„å¯†åº¦å€¼ï¼Œæ•´ä¸ªå¤§æ°”å±‚çš„å¯†åº¦æ¨¡å‹æœ‰ä¸¤å±‚
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  profileä¸ºå¤§æ°”å±‚,altitudeä¸ºæµ·æ‹”é«˜åº¦
  **/
 Number GetProfileDensity( IN(DensityProfile)profile, Length altitude ){
 	return(altitude < profile.layers[0].width ?
@@ -114,27 +114,27 @@ Number GetProfileDensity( IN(DensityProfile)profile, Length altitude ){
 }
 
 /**
- * ¹¦ÄÜ:
- *  ÓÃÌİ¶È·¨ºÍ¹âÏß²½½ø·¨(Ray Marching)¼ÆËã´Ópµ½´óÆø²ã¶¥²ãµãµÄ¹âÑ§³¤¶È
- * ´«Èë²ÎÊı£º
- *  atmosphereÎª´óÆøÄ£ĞÍ,profileÎªÏàÓ¦µÄÃÜ¶È·Ö²¼,rÎªÊÓµã¸ß¶È,muÊÇÊÓÏßÌì¶¥½ÇµÄcosÖµ
+ * åŠŸèƒ½:
+ *  ç”¨æ¢¯åº¦æ³•å’Œå…‰çº¿æ­¥è¿›æ³•(Ray Marching)è®¡ç®—ä»påˆ°å¤§æ°”å±‚é¡¶å±‚ç‚¹çš„å…‰å­¦é•¿åº¦
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereä¸ºå¤§æ°”æ¨¡å‹,profileä¸ºç›¸åº”çš„å¯†åº¦åˆ†å¸ƒ,rä¸ºè§†ç‚¹é«˜åº¦,muæ˜¯è§†çº¿å¤©é¡¶è§’çš„coså€¼
  **/
 Length ComputeOpticalLengthToTopAtmosphereBoundary(
 	IN(AtmosphereParameters)atmosphere, IN(DensityProfile)profile,
 	Length r, Number mu ){
-	/* È¡500¸ö²ÉÑù½øĞĞ»ı·Ö */
+	/* å–500ä¸ªé‡‡æ ·è¿›è¡Œç§¯åˆ† */
 	const int SAMPLE_COUNT = 500;
-	/* »ı·ÖÇø¼ä²½³¤ */
+	/* ç§¯åˆ†åŒºé—´æ­¥é•¿ */
 	Length dx = DistanceToTopAtmosphereBoundary(atmosphere,r,mu)/Number(SAMPLE_COUNT);
-	/* ÓÃÌİ¶È·¨Ñ­»·¼ÆËã½øĞĞ»ı·Ö */
+	/* ç”¨æ¢¯åº¦æ³•å¾ªç¯è®¡ç®—è¿›è¡Œç§¯åˆ† */
 	Length result = 0.0 * m;
 	for ( int i = 0; i <= SAMPLE_COUNT; ++i) {
 		Length d_i = Number( i ) * dx;
-		/* µ±Ç°²ÉÑùµãµ½ĞÇÇòÖĞĞÄµÄ¾àÀë */
+		/* å½“å‰é‡‡æ ·ç‚¹åˆ°æ˜Ÿçƒä¸­å¿ƒçš„è·ç¦» */
 		Length r_i = sqrt( d_i * d_i + 2.0 * r * mu * d_i + r * r );
-		/* »ñÈ¡µ±Ç°²ÉÑùµãµÄÃÜ¶ÈÖµ,×¢Òâ´«ÈëµÄÊÇº£°Î¸ß¶È */
+		/* è·å–å½“å‰é‡‡æ ·ç‚¹çš„å¯†åº¦å€¼,æ³¨æ„ä¼ å…¥çš„æ˜¯æµ·æ‹”é«˜åº¦ */
 		Number y_i = GetProfileDensity( profile, r_i - atmosphere.bottom_radius );
-		/* (¸ù¾İÌİ¶È¼ÆËã·¨Ôò,ÔÚ»ı·Ö¶ÎÁ½¶ËÈ¡0.5µÄÈ¨Öµ£¬ÆäÓàÎª1.0 */
+		/* (æ ¹æ®æ¢¯åº¦è®¡ç®—æ³•åˆ™,åœ¨ç§¯åˆ†æ®µä¸¤ç«¯å–0.5çš„æƒå€¼ï¼Œå…¶ä½™ä¸º1.0 */
 		Number weight_i = i == 0 || i == SAMPLE_COUNT ? 0.5 : 1.0;
 		result += y_i * weight_i * dx;
 	}
@@ -142,12 +142,12 @@ Length ComputeOpticalLengthToTopAtmosphereBoundary(
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãÊÓµãÑØÊÓÏß·½ÏòÓë´óÆø²ã¶¥²¿½»µãµÄÍ¸ÉäÂÊ(»ò³Æ¹âÑ§Éî¶È)
- *  ½á¹ûÎªÈı²¿·Öµş¼ÓÈ¡¸ºµÄexpÖµ:rayleigh¹âÑ§³¤¶È+mie¹âÑ§³¤¶È+ÎüÊÕ¹âÏß·Ö×ÓµÄ¹âÑ§³¤¶È
- *  ¶ÔÓ¦µÄ½éÖÊ·Ö±ğÎª:¿ÕÆø·Ö×Ó¡¢ÆøÈÜ½º¡¢ÎüÊÕ¹âÏßµÄ½éÖÊ
- * ´«Èë²ÎÊı£º
- *  atmosphereÎª´óÆøÄ£ĞÍ,rÎªÊÓµã¸ß¶È,muÊÇÊÓÏßÌì¶¥½ÇµÄcosÖµ
+ * åŠŸèƒ½:
+ *  è®¡ç®—è§†ç‚¹æ²¿è§†çº¿æ–¹å‘ä¸å¤§æ°”å±‚é¡¶éƒ¨äº¤ç‚¹çš„é€å°„ç‡(æˆ–ç§°å…‰å­¦æ·±åº¦)
+ *  ç»“æœä¸ºä¸‰éƒ¨åˆ†å åŠ å–è´Ÿçš„expå€¼:rayleighå…‰å­¦é•¿åº¦+mieå…‰å­¦é•¿åº¦+å¸æ”¶å…‰çº¿åˆ†å­çš„å…‰å­¦é•¿åº¦
+ *  å¯¹åº”çš„ä»‹è´¨åˆ†åˆ«ä¸º:ç©ºæ°”åˆ†å­ã€æ°”æº¶èƒ¶ã€å¸æ”¶å…‰çº¿çš„ä»‹è´¨
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereä¸ºå¤§æ°”æ¨¡å‹,rä¸ºè§†ç‚¹é«˜åº¦,muæ˜¯è§†çº¿å¤©é¡¶è§’çš„coså€¼
  **/
 DimensionlessSpectrum ComputeTransmittanceToTopAtmosphereBoundary(
 	IN(AtmosphereParameters)atmosphere, Length r, Number mu ){
@@ -164,86 +164,86 @@ DimensionlessSpectrum ComputeTransmittanceToTopAtmosphereBoundary(
 }
 
 /**
- * ¹¦ÄÜ:
- *  ½«[0,1]µÄxÓ³Éäµ½[0.5/n,1.0-0.5/n],ÆäÖĞnÊÇÎÆÀí´óĞ¡
- *  Ô­ÒòÊÇ·ÀÖ¹ÔÚÎÆÀí±ß½ç²¿·Ö²ÉÑù²úÉúÒ»Ğ©ÍâÍÆÖµ
- * ´«Èë²ÎÊı£º
- *  xÒªÓ³ÉäµÄÖµ,texture_sizeÎÆÀí´óĞ¡
+ * åŠŸèƒ½:
+ *  å°†[0,1]çš„xæ˜ å°„åˆ°[0.5/n,1.0-0.5/n],å…¶ä¸­næ˜¯çº¹ç†å¤§å°
+ *  åŸå› æ˜¯é˜²æ­¢åœ¨çº¹ç†è¾¹ç•Œéƒ¨åˆ†é‡‡æ ·äº§ç”Ÿä¸€äº›å¤–æ¨å€¼
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  xè¦æ˜ å°„çš„å€¼,texture_sizeçº¹ç†å¤§å°
  **/
 Number GetTextureCoordFromUnitRange( Number x, int texture_size ){
 	return(0.5 / Number( texture_size ) + x * (1.0 - 1.0 / Number( texture_size ) ) );
 }
 
 /**
- * ¹¦ÄÜ:
- *  GetTextureCoordFromUnitRangeµÄÄæ¹ı³Ì
- * ´«Èë²ÎÊı£º
- *  uÒªÓ³ÉäµÄÖµ,texture_sizeÎÆÀí´óĞ¡
+ * åŠŸèƒ½:
+ *  GetTextureCoordFromUnitRangeçš„é€†è¿‡ç¨‹
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  uè¦æ˜ å°„çš„å€¼,texture_sizeçº¹ç†å¤§å°
  **/
 Number GetUnitRangeFromTextureCoord( Number u, int texture_size ){
 	return( (u - 0.5 / Number( texture_size ) ) / (1.0 - 1.0 / Number( texture_size ) ) );
 }
 
 /**
- * ¹¦ÄÜ:
- *  ½«(r,mu)Í¨¹ı¹şÏ£º¯ÊıÓ³Éäµ½ÎÆÀí×ø±ê(u,v)
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆøÄ£ĞÍ²ÎÊı,rÎªÊÓµã¸ß¶È,muÊÇÊÓÏßÌì¶¥½ÇµÄcosÖµ
+ * åŠŸèƒ½:
+ *  å°†(r,mu)é€šè¿‡å“ˆå¸Œå‡½æ•°æ˜ å°„åˆ°çº¹ç†åæ ‡(u,v)
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”æ¨¡å‹å‚æ•°,rä¸ºè§†ç‚¹é«˜åº¦,muæ˜¯è§†çº¿å¤©é¡¶è§’çš„coså€¼
  **/
 vec2 GetTransmittanceTextureUvFromRMu(IN(AtmosphereParameters)atmosphere,
 				       Length r, Number mu){
-	/* µØ±íÇĞÏßÉäÏßÓë´óÆø²ã¶¥²¿µÄ½»µãÓëÇĞÏßµÄÆğµãÖ®¼äµÄ¾àÀë */
+	/* åœ°è¡¨åˆ‡çº¿å°„çº¿ä¸å¤§æ°”å±‚é¡¶éƒ¨çš„äº¤ç‚¹ä¸åˆ‡çº¿çš„èµ·ç‚¹ä¹‹é—´çš„è·ç¦» */
 	Length H = sqrt( atmosphere.top_radius * atmosphere.top_radius -
 			 atmosphere.bottom_radius * atmosphere.bottom_radius );
-	/* ¹ıÊÓµãµÄµØ±íÇĞÏßµÄÇĞµãµ½ÊÓµãµÄ¾àÀë */
+	/* è¿‡è§†ç‚¹çš„åœ°è¡¨åˆ‡çº¿çš„åˆ‡ç‚¹åˆ°è§†ç‚¹çš„è·ç¦» */
 	Length rho = SafeSqrt(r*r-atmosphere.bottom_radius*atmosphere.bottom_radius);
-	/* dÎªÊÓµãÑØÊÓÏß·½ÏòÓë´óÆø²ãÍâ²ãµÄ½»µãµÄ¾àÀë,ºóÁ½¸öÊÇdµÄÉÏ½ç¡¢ÏÂ½ç*/
+	/* dä¸ºè§†ç‚¹æ²¿è§†çº¿æ–¹å‘ä¸å¤§æ°”å±‚å¤–å±‚çš„äº¤ç‚¹çš„è·ç¦»,åä¸¤ä¸ªæ˜¯dçš„ä¸Šç•Œã€ä¸‹ç•Œ*/
 	Length	d		= DistanceToTopAtmosphereBoundary( atmosphere, r, mu );
-	Length	d_min	= atmosphere.top_radius - r;// ÏÂ½çÊÇÊÓµãµ½´óÆø²ãµÄ´¹Ö±¾àÀë
-	Length	d_max	= rho + H; // ÉÏ½çµÄÇé¿öÊÇÊÓÏß¸ÕºÃÓëµØ±íÏàÇĞ
-	Number	x_mu	= (d - d_min) / (d_max - d_min); // ½«muÓ³Éäµ½[0,1]
+	Length	d_min	= atmosphere.top_radius - r;// ä¸‹ç•Œæ˜¯è§†ç‚¹åˆ°å¤§æ°”å±‚çš„å‚ç›´è·ç¦»
+	Length	d_max	= rho + H; // ä¸Šç•Œçš„æƒ…å†µæ˜¯è§†çº¿åˆšå¥½ä¸åœ°è¡¨ç›¸åˆ‡
+	Number	x_mu	= (d - d_min) / (d_max - d_min); // å°†muæ˜ å°„åˆ°[0,1]
 	Number	x_r		= rho / H; 
 	return vec2(GetTextureCoordFromUnitRange(x_mu, TRANSMITTANCE_TEXTURE_WIDTH),
 		     	  GetTextureCoordFromUnitRange(x_r, TRANSMITTANCE_TEXTURE_HEIGHT));
 }
 
 /**
- * ¹¦ÄÜ:
- *  ½«(u,v)Ó³Éäµ½ÎÆÀí×ø±ê(r,mu),¼´ÉÏÃæº¯ÊıµÄÄæ¹ı³Ì
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆøÄ£ĞÍ²ÎÊı,rÎªÊÓµã¸ß¶È,muÊÇÊÓÏßÌì¶¥½ÇµÄcosÖµ,uvÊÇÒª±ä»»µÄÎÆÀí×ø±ê
+ * åŠŸèƒ½:
+ *  å°†(u,v)æ˜ å°„åˆ°çº¹ç†åæ ‡(r,mu),å³ä¸Šé¢å‡½æ•°çš„é€†è¿‡ç¨‹
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”æ¨¡å‹å‚æ•°,rä¸ºè§†ç‚¹é«˜åº¦,muæ˜¯è§†çº¿å¤©é¡¶è§’çš„coså€¼,uvæ˜¯è¦å˜æ¢çš„çº¹ç†åæ ‡
  **/
 void GetRMuFromTransmittanceTextureUv( IN(AtmosphereParameters)atmosphere,
 				       IN(vec2)uv, OUT(Length)r, OUT(Number)mu ){
-	/* ±ä»»»ØÀ´ */
+	/* å˜æ¢å›æ¥ */
 	Number	x_mu	= GetUnitRangeFromTextureCoord(uv.x, TRANSMITTANCE_TEXTURE_WIDTH);
 	Number	x_r		= GetUnitRangeFromTextureCoord(uv.y, TRANSMITTANCE_TEXTURE_HEIGHT);
-	/* µØ±íÇĞÏßÉäÏßÓë´óÆø²ã¶¥²¿µÄ½»µãÓëÇĞÏßµÄÆğµãÖ®¼äµÄ¾àÀë */
+	/* åœ°è¡¨åˆ‡çº¿å°„çº¿ä¸å¤§æ°”å±‚é¡¶éƒ¨çš„äº¤ç‚¹ä¸åˆ‡çº¿çš„èµ·ç‚¹ä¹‹é—´çš„è·ç¦» */
 	Length H = sqrt(atmosphere.top_radius * atmosphere.top_radius -
 			 		   atmosphere.bottom_radius * atmosphere.bottom_radius);
-	/* ¹ıÊÓµãµÄµØ±íÇĞÏßµÄÇĞµãµ½ÊÓµãµÄ¾àÀë,ÓÃÓÚ¼ÆËãr(Èı½ÇĞÎ¹´¹É¶¨Àí) */
+	/* è¿‡è§†ç‚¹çš„åœ°è¡¨åˆ‡çº¿çš„åˆ‡ç‚¹åˆ°è§†ç‚¹çš„è·ç¦»,ç”¨äºè®¡ç®—r(ä¸‰è§’å½¢å‹¾è‚¡å®šç†) */
 	Length rho = H * x_r;
 	r = sqrt(rho * rho + atmosphere.bottom_radius * atmosphere.bottom_radius);
-	/* dÎªÊÓµãÑØÊÓÏß·½ÏòÓë´óÆø²ãÍâ²ãµÄ½»µãµÄ¾àÀë,ÕâÀï¼ÆËãdµÄÉÏ¡¢ÏÂ½ç,´Ó¶øµÃ³öd */
+	/* dä¸ºè§†ç‚¹æ²¿è§†çº¿æ–¹å‘ä¸å¤§æ°”å±‚å¤–å±‚çš„äº¤ç‚¹çš„è·ç¦»,è¿™é‡Œè®¡ç®—dçš„ä¸Šã€ä¸‹ç•Œ,ä»è€Œå¾—å‡ºd */
 	Length	d_min	= atmosphere.top_radius - r;
 	Length	d_max	= rho + H;
 	Length	d		= d_min + x_mu * (d_max - d_min);
-   // ¸ù¾İH¡¢rho¡¢dÍÆ³öÊÓÏßÌì¶¥½ÇcosÖµ£¬ÓÉÇ°ÃæÌáµ½µÄÇód·½³Ìd^2+2rud+r^2-t^2=0ÍÆ³öÆäÖĞµÄu
+   // æ ¹æ®Hã€rhoã€dæ¨å‡ºè§†çº¿å¤©é¡¶è§’coså€¼ï¼Œç”±å‰é¢æåˆ°çš„æ±‚dæ–¹ç¨‹d^2+2rud+r^2-t^2=0æ¨å‡ºå…¶ä¸­çš„u
 	mu	= d == 0.0 * m ? Number(1.0) : (H * H - rho * rho - d * d) / (2.0 * r * d);
 	mu	= ClampCosine(mu);
 }
 
 /**
- * ¹¦ÄÜ:
- *  ½«´«ÈëµÄÎÆÀí×ø±ê(u,v)Ó³Éä»Ø(r,mu),È»ºó(r,mu)ÓÃÓÚ¼ÆËã¹âÑ§Éî¶È
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,frag_coordÎªµ±Ç°µÄÆ¬Ôª×ø±ê
+ * åŠŸèƒ½:
+ *  å°†ä¼ å…¥çš„çº¹ç†åæ ‡(u,v)æ˜ å°„å›(r,mu),ç„¶å(r,mu)ç”¨äºè®¡ç®—å…‰å­¦æ·±åº¦
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,frag_coordä¸ºå½“å‰çš„ç‰‡å…ƒåæ ‡
  **/
 DimensionlessSpectrum ComputeTransmittanceToTopAtmosphereBoundaryTexture(
 	IN(AtmosphereParameters)atmosphere, IN(vec2)frag_coord ){
 	const vec2 TRANSMITTANCE_TEXTURE_SIZE =
 				vec2(TRANSMITTANCE_TEXTURE_WIDTH, TRANSMITTANCE_TEXTURE_HEIGHT);
-	Length	r;/* rÎªÊÓµã¸ß¶È,muÊÇÊÓÏßÌì¶¥½ÇµÄcosÖµ */
+	Length	r;/* rä¸ºè§†ç‚¹é«˜åº¦,muæ˜¯è§†çº¿å¤©é¡¶è§’çš„coså€¼ */
 	Number	mu;
 	GetRMuFromTransmittanceTextureUv(atmosphere, 
 						frag_coord/TRANSMITTANCE_TEXTURE_SIZE, r, mu );
@@ -251,12 +251,12 @@ DimensionlessSpectrum ComputeTransmittanceToTopAtmosphereBoundaryTexture(
 }
 
 /**
- * ¹¦ÄÜ:
- *  ½«(r,mu)Ó³Éäµ½ÎÆÀí×ø±ê(u,v),È»ºó¸ù¾İ(u,v)»ñÈ¡ÏàÓ¦ÎÆÀíµ¥Ôª´æ´¢µÄ¹âÑ§Éî¶È
- *  ¼´ÓÃ(r,mu)È¥²éÕÒÔ¤¼ÆËã´æ·ÅµÄÎÆÀí,·µ»ØÏàÓ¦µ¥ÔªµÄÖµ
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_textureÍ¸ÉäÂÊÎÆÀí,
- *  rÎªÊÓµã¸ß¶È,muÊÇÊÓÏß·½ÏòÌì¶¥½ÇµÄcosÖµ
+ * åŠŸèƒ½:
+ *  å°†(r,mu)æ˜ å°„åˆ°çº¹ç†åæ ‡(u,v),ç„¶åæ ¹æ®(u,v)è·å–ç›¸åº”çº¹ç†å•å…ƒå­˜å‚¨çš„å…‰å­¦æ·±åº¦
+ *  å³ç”¨(r,mu)å»æŸ¥æ‰¾é¢„è®¡ç®—å­˜æ”¾çš„çº¹ç†,è¿”å›ç›¸åº”å•å…ƒçš„å€¼
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureé€å°„ç‡çº¹ç†,
+ *  rä¸ºè§†ç‚¹é«˜åº¦,muæ˜¯è§†çº¿æ–¹å‘å¤©é¡¶è§’çš„coså€¼
  **/
 DimensionlessSpectrum GetTransmittanceToTopAtmosphereBoundary(
 	IN(AtmosphereParameters)atmosphere,
@@ -267,22 +267,22 @@ DimensionlessSpectrum GetTransmittanceToTopAtmosphereBoundary(
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãÊÓµãpÓë´ÓÊÓµã´¥·¢ÑØÊÓÏß³¤¶ÈÎªdµÄµãqÖ®¼äµÄ¹âÑ§Éî¶È
- *  pq¹âÑ§Éî¶È=pi¹âÑ§Éî¶È/qi¹âÑ§Éî¶È,iÊÇpÑØÊÓÏßÓë´óÆø¶¥²ãµÄ½»µã
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_texture¹âÑ§Éî¶ÈÎÆÀí,rÎªÊÓµãp¸ß¶È
- *  ,muÊÇÊÓÏßÌì¶¥½ÇµÄcosÖµ,dÊÇÏòÁ¿pqµÄ³¤¶È,ray_r_mu_intersects_groundÉäÏßÊÇ·ñÓëµØÃæÏà½»
+ * åŠŸèƒ½:
+ *  è®¡ç®—è§†ç‚¹pä¸ä»è§†ç‚¹è§¦å‘æ²¿è§†çº¿é•¿åº¦ä¸ºdçš„ç‚¹qä¹‹é—´çš„å…‰å­¦æ·±åº¦
+ *  pqå…‰å­¦æ·±åº¦=piå…‰å­¦æ·±åº¦/qiå…‰å­¦æ·±åº¦,iæ˜¯pæ²¿è§†çº¿ä¸å¤§æ°”é¡¶å±‚çš„äº¤ç‚¹
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureå…‰å­¦æ·±åº¦çº¹ç†,rä¸ºè§†ç‚¹pé«˜åº¦
+ *  ,muæ˜¯è§†çº¿å¤©é¡¶è§’çš„coså€¼,dæ˜¯å‘é‡pqçš„é•¿åº¦,ray_r_mu_intersects_groundå°„çº¿æ˜¯å¦ä¸åœ°é¢ç›¸äº¤
  **/
 DimensionlessSpectrum GetTransmittance(
 	IN(AtmosphereParameters)atmosphere,
 	IN(TransmittanceTexture)transmittance_texture,
 	Length r, Number mu, Length d, bool ray_r_mu_intersects_ground){
-	/* ¼ÆËãµãq´¦µÄ¸ß¶ÈÓëÌì¶¥½ÇcosÖµ */
+	/* è®¡ç®—ç‚¹qå¤„çš„é«˜åº¦ä¸å¤©é¡¶è§’coså€¼ */
 	Length	r_d		= ClampRadius(atmosphere, sqrt(d * d + 2.0 * r * mu * d + r * r));
-	Number	mu_d	= ClampCosine((r * mu + d) / r_d);// oqÏòÁ¿ÓëpiÏòÁ¿µã»ı³ıÒÔÁ½ÏòÁ¿³¤¶ÈÖ®»ı
+	Number	mu_d	= ClampCosine((r * mu + d) / r_d);// oqå‘é‡ä¸piå‘é‡ç‚¹ç§¯é™¤ä»¥ä¸¤å‘é‡é•¿åº¦ä¹‹ç§¯
 
-	/* Èç¹ûÉäÏßpiÓëµØÃæÓĞ½»µã,È¡·´ÏòµÄÌì¶¥½Ç */
+	/* å¦‚æœå°„çº¿piä¸åœ°é¢æœ‰äº¤ç‚¹,å–åå‘çš„å¤©é¡¶è§’ */
 	if ( ray_r_mu_intersects_ground ){
 		return min(
 			       GetTransmittanceToTopAtmosphereBoundary(
@@ -301,34 +301,34 @@ DimensionlessSpectrum GetTransmittance(
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãÄ³Ò»µãµ½Ì«ÑôµÄ¹âÑ§
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_textureÍ¸ÉäÂÊÎÆÀí,rÎªÊÓµãpº£°Î¸ß¶È
- *  ,mu_sÊÇÉäÏßÓëÌ«Ñô¼Ğ½ÇµÄcosÖµ
+ * åŠŸèƒ½:
+ *  è®¡ç®—æŸä¸€ç‚¹åˆ°å¤ªé˜³çš„å…‰å­¦
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureé€å°„ç‡çº¹ç†,rä¸ºè§†ç‚¹pæµ·æ‹”é«˜åº¦
+ *  ,mu_sæ˜¯å°„çº¿ä¸å¤ªé˜³å¤¹è§’çš„coså€¼
  **/
 DimensionlessSpectrum GetTransmittanceToSun(
 	IN(AtmosphereParameters)atmosphere,
 	IN(TransmittanceTexture)transmittance_texture,
 	Length r, Number mu_s ){
-	/* ¼ÆËã¹ıÊÓµãpµÄµØÃæÇĞÏßÉäÏßµÄÌì¶¥½ÇµÄsinºÍcosÖµ */
+	/* è®¡ç®—è¿‡è§†ç‚¹pçš„åœ°é¢åˆ‡çº¿å°„çº¿çš„å¤©é¡¶è§’çš„sinå’Œcoså€¼ */
 	Number	sin_theta_h	= atmosphere.bottom_radius / r;
-	Number	cos_theta_h	= -sqrt(max(1.0-sin_theta_h*sin_theta_h, 0.0));//È¡¸ºÊÇÒòÎªthetaÒ»¶¨´óÓÚµÈÓÚ90¶È
-	/* µ½Ì«ÑôµÄÍ¸ÉäÂÊ=¹âÑ§³¤¶È*Ì«ÑôÔÚµØÆ½ÃæÒÔÉÏ²¿·ÖµÄÇøÓò²¿·Ö */
+	Number	cos_theta_h	= -sqrt(max(1.0-sin_theta_h*sin_theta_h, 0.0));//å–è´Ÿæ˜¯å› ä¸ºthetaä¸€å®šå¤§äºç­‰äº90åº¦
+	/* åˆ°å¤ªé˜³çš„é€å°„ç‡=å…‰å­¦é•¿åº¦*å¤ªé˜³åœ¨åœ°å¹³é¢ä»¥ä¸Šéƒ¨åˆ†çš„åŒºåŸŸéƒ¨åˆ† */
 	return(GetTransmittanceToTopAtmosphereBoundary(
 		       atmosphere, transmittance_texture, r, mu_s ) *
-	       smoothstep(-sin_theta_h * atmosphere.sun_angular_radius/rad,// radÎª»¡¶Èµ¥Î»
+	       smoothstep(-sin_theta_h * atmosphere.sun_angular_radius/rad,// radä¸ºå¼§åº¦å•ä½
 			   			  sin_theta_h * atmosphere.sun_angular_radius/rad,
 			   			  mu_s-cos_theta_h));
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãµ¥´ÎÉ¢Éä»ı·Ö,·µ»ØrayleighÉ¢ÉäÏµÊıºÍmieÉ¢ÉäÏµÊı»ı·ÖÖµ,¼´¹âÑ§Éî¶È(²»ÊÇ¹âÑ§³¤¶È)
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_texture¹âÑ§³¤¶ÈÎÆÀí,rÎªÊÓµãp¸ß¶È
- *  muÎªÊÓÏßÌì¶¥½ÇcosÖµ,mu_sÊÇÌ«Ñô·½ÏòÌì¶¥½ÇµÄcosÖµ,dÎªÊÓµãpÑØÊÓÏß·½ÏòÓëqµÄ¾àÀë,
- *  nuÊÇÊÓÏßÓëÌ«Ñôµ¥Î»·½ÏòÏòÁ¿µÄ¼Ğ½ÇcosÖµ,ray_r_mu_intersects_groundÉäÏßÊÇ·ñÓëµØÃæÏà½»
+ * åŠŸèƒ½:
+ *  è®¡ç®—å•æ¬¡æ•£å°„ç§¯åˆ†,è¿”å›rayleighæ•£å°„ç³»æ•°å’Œmieæ•£å°„ç³»æ•°ç§¯åˆ†å€¼,å³å…‰å­¦æ·±åº¦(ä¸æ˜¯å…‰å­¦é•¿åº¦)
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureå…‰å­¦é•¿åº¦çº¹ç†,rä¸ºè§†ç‚¹pé«˜åº¦
+ *  muä¸ºè§†çº¿å¤©é¡¶è§’coså€¼,mu_sæ˜¯å¤ªé˜³æ–¹å‘å¤©é¡¶è§’çš„coså€¼,dä¸ºè§†ç‚¹pæ²¿è§†çº¿æ–¹å‘ä¸qçš„è·ç¦»,
+ *  nuæ˜¯è§†çº¿ä¸å¤ªé˜³å•ä½æ–¹å‘å‘é‡çš„å¤¹è§’coså€¼,ray_r_mu_intersects_groundå°„çº¿æ˜¯å¦ä¸åœ°é¢ç›¸äº¤
  **/
 void ComputeSingleScatteringIntegrand(
 	IN(AtmosphereParameters)atmosphere,
@@ -336,11 +336,11 @@ void ComputeSingleScatteringIntegrand(
 	Length r, Number mu, Number mu_s, Number nu, Length d,
 	bool ray_r_mu_intersects_ground,
 	OUT(DimensionlessSpectrum)rayleigh, OUT(DimensionlessSpectrum)mie ){
-	/* ÉèqÎªÉäÏßpiÉÏµÄÒ»µã,r_dÎªqµÄº£°Î¸ß¶È */
+	/* è®¾qä¸ºå°„çº¿piä¸Šçš„ä¸€ç‚¹,r_dä¸ºqçš„æµ·æ‹”é«˜åº¦ */
 	Length r_d 	 = ClampRadius( atmosphere, sqrt( d * d + 2.0 * r * mu * d + r * r ) );
-	/* mu_s_dÎªÏòÁ¿0qÓëÌ«Ñôµ¥Î»·½ÏòÏòÁ¿µÄ¼Ğ½ÇµÄcosÖµ */
+	/* mu_s_dä¸ºå‘é‡0qä¸å¤ªé˜³å•ä½æ–¹å‘å‘é‡çš„å¤¹è§’çš„coså€¼ */
 	Number mu_s_d = ClampCosine( (r * mu_s + d * nu) / r_d );
-	/* Ïà³ËÊÇÒòÎªGetTransmittance·µ»ØµÄÊÇexp,Ïà³Ë¼´ËûÃÇµÄÖ¸ÊıÏà¼Ó */
+	/* ç›¸ä¹˜æ˜¯å› ä¸ºGetTransmittanceè¿”å›çš„æ˜¯exp,ç›¸ä¹˜å³ä»–ä»¬çš„æŒ‡æ•°ç›¸åŠ  */
 	DimensionlessSpectrum transmittance =
 		GetTransmittance(atmosphere, transmittance_texture, r, mu, d,ray_r_mu_intersects_ground) *
 		GetTransmittanceToSun(atmosphere, transmittance_texture, r_d, mu_s_d);
@@ -351,29 +351,29 @@ void ComputeSingleScatteringIntegrand(
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãÉäÏß(r,mu)µ½´óÆø²ã±ß½ç×î½üµÄ¾àÀë
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,rÎªÊÓµãp¸ß¶È,muÎªÊÓÏßÌì¶¥½ÇcosÖµ,
- *	 ray_r_mu_intersects_groundÉäÏßÊÇ·ñÓëµØÃæÏà½»
+ * åŠŸèƒ½:
+ *  è®¡ç®—å°„çº¿(r,mu)åˆ°å¤§æ°”å±‚è¾¹ç•Œæœ€è¿‘çš„è·ç¦»
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,rä¸ºè§†ç‚¹pé«˜åº¦,muä¸ºè§†çº¿å¤©é¡¶è§’coså€¼,
+ *	 ray_r_mu_intersects_groundå°„çº¿æ˜¯å¦ä¸åœ°é¢ç›¸äº¤
  **/
 Length DistanceToNearestAtmosphereBoundary( IN(AtmosphereParameters)atmosphere,
 					    Length r, Number mu, bool ray_r_mu_intersects_ground ){
-	/* ÈôÉäÏßÓëµØÃæÓĞ½»µã,·µ»ØÉäµãµ½µØÇò±íÃæµÄ¾àÀë */
+	/* è‹¥å°„çº¿ä¸åœ°é¢æœ‰äº¤ç‚¹,è¿”å›å°„ç‚¹åˆ°åœ°çƒè¡¨é¢çš„è·ç¦» */
 	if ( ray_r_mu_intersects_ground ){
 		return DistanceToBottomAtmosphereBoundary(atmosphere, r, mu);
-	}else{ /* ·ñÔò·µ»Øµ½´óÆø²ã¶¥²¿µÄ¾àÀë */
+	}else{ /* å¦åˆ™è¿”å›åˆ°å¤§æ°”å±‚é¡¶éƒ¨çš„è·ç¦» */
 		return DistanceToTopAtmosphereBoundary( atmosphere, r, mu);
 	}
 }
 
 /**
- * ¹¦ÄÜ:
- *  ÓÃÌİ¶È·¨ºÍ¹âÏß²½½ø¼ÆËãµ¥´ÎÄÚÉ¢Éä»ı·Ö
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_texture¹âÑ§³¤¶ÈÎÆÀí,rÎªÊÓµãp¸ß¶È
- *  muÎªÊÓÏßÌì¶¥½ÇcosÖµ,mu_sÊÇÌ«Ñô·½ÏòÌì¶¥½ÇµÄcosÖµ,
- *  nuÊÇÏòÁ¿pqÓëÌ«Ñôµ¥Î»·½ÏòÏòÁ¿µÄ¼Ğ½ÇcosÖµ,ray_r_mu_intersects_groundÉäÏßÊÇ·ñÓëµØÃæÏà½»
+ * åŠŸèƒ½:
+ *  ç”¨æ¢¯åº¦æ³•å’Œå…‰çº¿æ­¥è¿›è®¡ç®—å•æ¬¡å†…æ•£å°„ç§¯åˆ†
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureå…‰å­¦é•¿åº¦çº¹ç†,rä¸ºè§†ç‚¹pé«˜åº¦
+ *  muä¸ºè§†çº¿å¤©é¡¶è§’coså€¼,mu_sæ˜¯å¤ªé˜³æ–¹å‘å¤©é¡¶è§’çš„coså€¼,
+ *  nuæ˜¯å‘é‡pqä¸å¤ªé˜³å•ä½æ–¹å‘å‘é‡çš„å¤¹è§’coså€¼,ray_r_mu_intersects_groundå°„çº¿æ˜¯å¦ä¸åœ°é¢ç›¸äº¤
  **/
 void ComputeSingleScattering(
 	IN(AtmosphereParameters)atmosphere,
@@ -381,9 +381,9 @@ void ComputeSingleScattering(
 	Length r, Number mu, Number mu_s, Number nu,
 	bool ray_r_mu_intersects_ground,
 	OUT(IrradianceSpectrum)rayleigh, OUT(IrradianceSpectrum)mie ){
-	/* ÊıÖµ»ı·Ö²ÉÑù¸öÊı */
+	/* æ•°å€¼ç§¯åˆ†é‡‡æ ·ä¸ªæ•° */
 	const int SAMPLE_COUNT = 50;
-	/* »ı·Ö²½³¤,È¡Ò»¸ö×î½üµÄ½»µã×÷Îª»ı·ÖÖÕµã,»òµØÃæ»ò´óÆø¶¥²ã */
+	/* ç§¯åˆ†æ­¥é•¿,å–ä¸€ä¸ªæœ€è¿‘çš„äº¤ç‚¹ä½œä¸ºç§¯åˆ†ç»ˆç‚¹,æˆ–åœ°é¢æˆ–å¤§æ°”é¡¶å±‚ */
 	Length dx =
 		DistanceToNearestAtmosphereBoundary(atmosphere, r, mu,
 						     ray_r_mu_intersects_ground)/Number( SAMPLE_COUNT);
@@ -391,7 +391,7 @@ void ComputeSingleScattering(
 	DimensionlessSpectrum	mie_sum		= DimensionlessSpectrum(0.0);
 	for ( int i = 0; i <= SAMPLE_COUNT; ++i ){
 		Length d_i = Number(i)*dx;
-		/* µ±Ç°µãµÄrayleighÉ¢ÉäÏµÊıÓëmieÉ¢ÉäÏµÊı. */
+		/* å½“å‰ç‚¹çš„rayleighæ•£å°„ç³»æ•°ä¸mieæ•£å°„ç³»æ•°. */
 		DimensionlessSpectrum	rayleigh_i;
 		DimensionlessSpectrum	mie_i;
 		ComputeSingleScatteringIntegrand(atmosphere, transmittance_texture,
@@ -400,29 +400,29 @@ void ComputeSingleScattering(
 		rayleigh_sum	  += rayleigh_i * weight_i;
 		mie_sum		  += mie_i * weight_i;
 	}
-	// ´ËÊ±ÉĞÎ´³ËÉÏÏàÎ»º¯Êı,ÎªÁË¼õÉÙ¼ÆËãÁ¿,ÒòÎªÊÇ¾ùÔÈ²ÉÑù,ËùÒÔ½«dx·Åµ½ÍâÑ­»·È¥
+	// æ­¤æ—¶å°šæœªä¹˜ä¸Šç›¸ä½å‡½æ•°,ä¸ºäº†å‡å°‘è®¡ç®—é‡,å› ä¸ºæ˜¯å‡åŒ€é‡‡æ ·,æ‰€ä»¥å°†dxæ”¾åˆ°å¤–å¾ªç¯å»
 	rayleigh = rayleigh_sum * dx * atmosphere.solar_irradiance * atmosphere.rayleigh_scattering;
 	mie 	  = mie_sum * dx * atmosphere.solar_irradiance * atmosphere.mie_scattering;
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãrayleighÏàÎ»º¯Êı
- * ´«Èë²ÎÊı£º
- *  nuÊÇÏòÁ¿pqÓëÌ«Ñôµ¥Î»·½ÏòÏòÁ¿µÄ¼Ğ½ÇcosÖµ
+ * åŠŸèƒ½:
+ *  è®¡ç®—rayleighç›¸ä½å‡½æ•°
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  nuæ˜¯å‘é‡pqä¸å¤ªé˜³å•ä½æ–¹å‘å‘é‡çš„å¤¹è§’coså€¼
  **/
 InverseSolidAngle RayleighPhaseFunction(Number nu){
-	InverseSolidAngle k = 3.0 / (16.0 * PI * sr);// srÎªÁ¢Ìå½Çµ¥Î»
+	InverseSolidAngle k = 3.0 / (16.0 * PI * sr);// srä¸ºç«‹ä½“è§’å•ä½
 	return(k * (1.0 + nu * nu) );
 }
 
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãmieÏàÎ»º¯Êı
- * ´«Èë²ÎÊı£º
- *  nuÊÇÏòÁ¿pqÓëÌ«Ñôµ¥Î»·½ÏòÏòÁ¿µÄ¼Ğ½ÇcosÖµ,gÊÇÉ¢ÉäµÄ¶Ô³ÆĞÔÒò×Ó
- *  gÎªÕıÊı±íÊ¾¹âÏß´ó¶àÊıÏòºó·½É¢Éä,Îª¸ºÊıËµÃ÷¸ü¶àµÄ¹âÏßÏòÇ°·½É¢Éä
+ * åŠŸèƒ½:
+ *  è®¡ç®—mieç›¸ä½å‡½æ•°
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  nuæ˜¯å‘é‡pqä¸å¤ªé˜³å•ä½æ–¹å‘å‘é‡çš„å¤¹è§’coså€¼,gæ˜¯æ•£å°„çš„å¯¹ç§°æ€§å› å­
+ *  gä¸ºæ­£æ•°è¡¨ç¤ºå…‰çº¿å¤§å¤šæ•°å‘åæ–¹æ•£å°„,ä¸ºè´Ÿæ•°è¯´æ˜æ›´å¤šçš„å…‰çº¿å‘å‰æ–¹æ•£å°„
  **/
 InverseSolidAngle MiePhaseFunction( Number g, Number nu ){
 	InverseSolidAngle k = 3.0 / (8.0 * PI * sr) * (1.0 - g * g) / (2.0 + g * g);
@@ -430,32 +430,32 @@ InverseSolidAngle MiePhaseFunction( Number g, Number nu ){
 }
 
 /**
- * ¹¦ÄÜ:
- *  ½«¼ÆËãÉ¢Éä»ı·ÖĞèÒªµÄËÄ¸ö²ÎÊı(r,mu,mu_s,nu)Ó³Éäµ½ÎÆÀí×ø±ê(u,v,w,z)
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,rÎªÊÓµãp¸ß¶È,muÎªÊÓÏßÌì¶¥½ÇcosÖµ,
- *  mu_sÊÇÌ«Ñô·½ÏòÌì¶¥½ÇµÄcosÖµ,nuÊÇÏòÁ¿pqÓëÌ«Ñôµ¥Î»·½ÏòÏòÁ¿µÄ¼Ğ½ÇcosÖµ,
- *  ray_r_mu_intersects_groundÉäÏßÊÇ·ñÓëµØÃæÏà½»
+ * åŠŸèƒ½:
+ *  å°†è®¡ç®—æ•£å°„ç§¯åˆ†éœ€è¦çš„å››ä¸ªå‚æ•°(r,mu,mu_s,nu)æ˜ å°„åˆ°çº¹ç†åæ ‡(u,v,w,z)
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,rä¸ºè§†ç‚¹pé«˜åº¦,muä¸ºè§†çº¿å¤©é¡¶è§’coså€¼,
+ *  mu_sæ˜¯å¤ªé˜³æ–¹å‘å¤©é¡¶è§’çš„coså€¼,nuæ˜¯å‘é‡pqä¸å¤ªé˜³å•ä½æ–¹å‘å‘é‡çš„å¤¹è§’coså€¼,
+ *  ray_r_mu_intersects_groundå°„çº¿æ˜¯å¦ä¸åœ°é¢ç›¸äº¤
  **/
 vec4 GetScatteringTextureUvwzFromRMuMuSNu( IN(AtmosphereParameters)atmosphere,
 					   Length r, Number mu, Number mu_s, Number nu,
 					   bool ray_r_mu_intersects_ground ){
-	/* ¹ıÊÓµãµÄÓëµØ±íÏàÇĞµÄÉäÏßµÄÇĞµãµ½´óÆø¶¥²ãµÄ¾àÀë */
+	/* è¿‡è§†ç‚¹çš„ä¸åœ°è¡¨ç›¸åˆ‡çš„å°„çº¿çš„åˆ‡ç‚¹åˆ°å¤§æ°”é¡¶å±‚çš„è·ç¦» */
 	Length H = sqrt( atmosphere.top_radius * atmosphere.top_radius -
 			 			atmosphere.bottom_radius * atmosphere.bottom_radius );
-	/* ÊÓµãpµ½¹ıÊÓÏßµÄÓëµØ±íÏàÇĞµÄÇĞÏßµÄÇĞµãµÄ¾àÀë */
+	/* è§†ç‚¹påˆ°è¿‡è§†çº¿çš„ä¸åœ°è¡¨ç›¸åˆ‡çš„åˆ‡çº¿çš„åˆ‡ç‚¹çš„è·ç¦» */
 	Length rho =
 			SafeSqrt( r * r - atmosphere.bottom_radius * atmosphere.bottom_radius );
 	Number u_r = GetTextureCoordFromUnitRange(rho/H, SCATTERING_TEXTURE_R_SIZE);
 
-	/* ¶şÔªÒ»´Î·½³ÌÅĞ±ğÊ½,ÓÃÓÚ¶şÔªÒ»´Î·½³ÌÇó¸ù¹«Ê½(Çó½âÉäÏß(r,mu)ÓëµØ±íµÄ½»µã) */
+	/* äºŒå…ƒä¸€æ¬¡æ–¹ç¨‹åˆ¤åˆ«å¼,ç”¨äºäºŒå…ƒä¸€æ¬¡æ–¹ç¨‹æ±‚æ ¹å…¬å¼(æ±‚è§£å°„çº¿(r,mu)ä¸åœ°è¡¨çš„äº¤ç‚¹) */
 	Length	r_mu = r * mu;
 	Area	discriminant	=
 				r_mu*r_mu - r*r+atmosphere.bottom_radius*atmosphere.bottom_radius;
 	Number u_mu;
-	/* ÈôÉäÏß(r,mu)ÓëµØÃæÓĞ½»µã */
+	/* è‹¥å°„çº¿(r,mu)ä¸åœ°é¢æœ‰äº¤ç‚¹ */
 	if ( ray_r_mu_intersects_ground ){
-		/* ÉäÏß(r,mu)Éäµãµ½ÓëµØÃæ½»µãµÄ¾àÀëd,´¿´âµÄÇó¸ù¹«Ê½,ÒÔ¼°dµÄÉÏ¡¢ÏÂ½ç */
+		/* å°„çº¿(r,mu)å°„ç‚¹åˆ°ä¸åœ°é¢äº¤ç‚¹çš„è·ç¦»d,çº¯ç²¹çš„æ±‚æ ¹å…¬å¼,ä»¥åŠdçš„ä¸Šã€ä¸‹ç•Œ */
 		Length d 		= -r_mu - SafeSqrt(discriminant);
 		Length	d_min	= r - atmosphere.bottom_radius;
 		Length	d_max	= rho;
@@ -463,7 +463,7 @@ vec4 GetScatteringTextureUvwzFromRMuMuSNu( IN(AtmosphereParameters)atmosphere,
 								 d_max == d_min ? 0.0:(d - d_min) / (d_max - d_min),
 								 SCATTERING_TEXTURE_MU_SIZE / 2 );
 	} else {
-		/* ¼ÆËãÉäÏß(r,mu)Éäµãµ½´óÆø²ã¶¥²ã±ß½ç½»µãµÄ¾àÀë¼°ÆäÉÏ½ç¡¢ÏÂ½ç */
+		/* è®¡ç®—å°„çº¿(r,mu)å°„ç‚¹åˆ°å¤§æ°”å±‚é¡¶å±‚è¾¹ç•Œäº¤ç‚¹çš„è·ç¦»åŠå…¶ä¸Šç•Œã€ä¸‹ç•Œ */
 		Length	d		= -r_mu + SafeSqrt( discriminant + H * H );
 		Length	d_min	= atmosphere.top_radius - r;
 		Length	d_max	= rho + H;
@@ -471,7 +471,7 @@ vec4 GetScatteringTextureUvwzFromRMuMuSNu( IN(AtmosphereParameters)atmosphere,
 								(d - d_min) / (d_max - d_min), SCATTERING_TEXTURE_MU_SIZE/2);
 	}
 	
-	/* ¶ÔÓÚmu_s,½èÓÃµØ±íÉÏÓĞÏàÍ¬mu_sµÄµã½øĞĞÓ³Éä */
+	/* å¯¹äºmu_s,å€Ÿç”¨åœ°è¡¨ä¸Šæœ‰ç›¸åŒmu_sçš„ç‚¹è¿›è¡Œæ˜ å°„ */
 	Length d 		  = DistanceToTopAtmosphereBoundary(
 								atmosphere, atmosphere.bottom_radius, mu_s );
 	Length	d_min	  = atmosphere.top_radius-atmosphere.bottom_radius;
@@ -480,17 +480,17 @@ vec4 GetScatteringTextureUvwzFromRMuMuSNu( IN(AtmosphereParameters)atmosphere,
 	Number	A		  = -2.0*atmosphere.mu_s_min*atmosphere.bottom_radius/(d_max-d_min);
 	Number	u_mu_s   = GetTextureCoordFromUnitRange(max(1.0-a/A, 0.0)/(1.0+a),
 							  SCATTERING_TEXTURE_MU_S_SIZE);
-	Number u_nu = (nu + 1.0) / 2.0; //½«nu´Ó[-1,1]Ó³Éäµ½[0,1]
+	Number u_nu = (nu + 1.0) / 2.0; //å°†nuä»[-1,1]æ˜ å°„åˆ°[0,1]
 	return vec4(u_nu, u_mu_s, u_mu, u_r);
 }
 
 /**
- * ¹¦ÄÜ:
- *  ½«ÎÆÀí×ø±ê(u,v,w,z)Ó³Éäµ½¼ÆËãÉ¢Éä»ı·ÖĞèÒªµÄËÄ¸ö²ÎÊı(r,mu,mu_s,nu)
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,rÎªÊÓµãp¸ß¶È,muÎªÊÓÏßÌì¶¥½ÇcosÖµ,uvwzÊÇ4DÎÆÀí×ø±ê
- *  mu_sÊÇÌ«Ñô·½ÏòÌì¶¥½ÇµÄcosÖµ,nuÊÇÏòÁ¿pqÓëÌ«Ñôµ¥Î»·½ÏòÏòÁ¿µÄ¼Ğ½ÇcosÖµ,
- *  ray_r_mu_intersects_groundÉäÏßÊÇ·ñÓëµØÃæÏà½»
+ * åŠŸèƒ½:
+ *  å°†çº¹ç†åæ ‡(u,v,w,z)æ˜ å°„åˆ°è®¡ç®—æ•£å°„ç§¯åˆ†éœ€è¦çš„å››ä¸ªå‚æ•°(r,mu,mu_s,nu)
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,rä¸ºè§†ç‚¹pé«˜åº¦,muä¸ºè§†çº¿å¤©é¡¶è§’coså€¼,uvwzæ˜¯4Dçº¹ç†åæ ‡
+ *  mu_sæ˜¯å¤ªé˜³æ–¹å‘å¤©é¡¶è§’çš„coså€¼,nuæ˜¯å‘é‡pqä¸å¤ªé˜³å•ä½æ–¹å‘å‘é‡çš„å¤¹è§’coså€¼,
+ *  ray_r_mu_intersects_groundå°„çº¿æ˜¯å¦ä¸åœ°é¢ç›¸äº¤
  **/
 void GetRMuMuSNuFromScatteringTextureUvwz( IN(AtmosphereParameters)atmosphere,
 					   IN(vec4)uvwz, OUT(Length)r, OUT(Number)mu, OUT(Number)mu_s,
@@ -529,12 +529,12 @@ void GetRMuMuSNuFromScatteringTextureUvwz( IN(AtmosphereParameters)atmosphere,
 }
 
 /**
- * ¹¦ÄÜ:
- *  Êµ¼ÊÖĞÖ»ÓĞ3DÎÆÀí×ø±ê,ÕâÀï½«3D×ª³É4D,È»ºó¸ù¾İ4DÎÆÀí»ñÈ¡(r,mu,mu_s,nu)²ÎÊı
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,rÎªÊÓµãp¸ß¶È,muÎªÊÓÏßÌì¶¥½ÇcosÖµ,uvwzÊÇ4DÎÆÀí×ø±ê
- *  mu_sÊÇÌ«Ñô·½ÏòÌì¶¥½ÇµÄcosÖµ,nuÊÇÏòÁ¿pqÓëÌ«Ñôµ¥Î»·½ÏòÏòÁ¿µÄ¼Ğ½ÇcosÖµ,
- *  ray_r_mu_intersects_groundÉäÏßÊÇ·ñÓëµØÃæÏà½»
+ * åŠŸèƒ½:
+ *  å®é™…ä¸­åªæœ‰3Dçº¹ç†åæ ‡,è¿™é‡Œå°†3Dè½¬æˆ4D,ç„¶åæ ¹æ®4Dçº¹ç†è·å–(r,mu,mu_s,nu)å‚æ•°
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,rä¸ºè§†ç‚¹pé«˜åº¦,muä¸ºè§†çº¿å¤©é¡¶è§’coså€¼,uvwzæ˜¯4Dçº¹ç†åæ ‡
+ *  mu_sæ˜¯å¤ªé˜³æ–¹å‘å¤©é¡¶è§’çš„coså€¼,nuæ˜¯å‘é‡pqä¸å¤ªé˜³å•ä½æ–¹å‘å‘é‡çš„å¤¹è§’coså€¼,
+ *  ray_r_mu_intersects_groundå°„çº¿æ˜¯å¦ä¸åœ°é¢ç›¸äº¤
  **/
 void GetRMuMuSNuFromScatteringTextureFragCoord(
 	IN(AtmosphereParameters)atmosphere, IN(vec3)frag_coord,
@@ -545,27 +545,27 @@ void GetRMuMuSNuFromScatteringTextureFragCoord(
 						SCATTERING_TEXTURE_MU_S_SIZE,
 						SCATTERING_TEXTURE_MU_SIZE,
 						SCATTERING_TEXTURE_R_SIZE);
-	/* nuºÍmu_sµÄ×ø±êÖµ¾ùÓÉfrag_cood.x»ñÈ¡,Ç°ÕßÈ¡Õû,ºóÕßÈ¡Ä£ */
+	/* nuå’Œmu_sçš„åæ ‡å€¼å‡ç”±frag_cood.xè·å–,å‰è€…å–æ•´,åè€…å–æ¨¡ */
 	Number frag_coord_nu =
 				floor(frag_coord.x/Number(SCATTERING_TEXTURE_MU_S_SIZE));
 	Number frag_coord_mu_s =
 				mod(frag_coord.x, Number(SCATTERING_TEXTURE_MU_S_SIZE));
 	vec4 uvwz = vec4(frag_coord_nu, frag_coord_mu_s, frag_coord.y, frag_coord.z)/
 						SCATTERING_TEXTURE_SIZE;
-	/* ¸ù¾İuvwzÕâ¸ö4DÎÆÀí×ø±ê´ÓÉ¢ÉäÎÆÀíÖĞ»ñÈ¡¶ÔÓ¦µÄ(r,mu,mu_s,nu) */
+	/* æ ¹æ®uvwzè¿™ä¸ª4Dçº¹ç†åæ ‡ä»æ•£å°„çº¹ç†ä¸­è·å–å¯¹åº”çš„(r,mu,mu_s,nu) */
 	GetRMuMuSNuFromScatteringTextureUvwz(
 				atmosphere, uvwz, r, mu, mu_s, nu, ray_r_mu_intersects_ground );
-	/* ¶ÔÓÚnu,¸ù¾İ¸ø¶¨µÄmuºÍmu_s¶ÔÆä×öÒ»Ğ©ÉÏÏÂ½çÔ¼Êø[cos(x+y),cos(x-y)] */
+	/* å¯¹äºnu,æ ¹æ®ç»™å®šçš„muå’Œmu_så¯¹å…¶åšä¸€äº›ä¸Šä¸‹ç•Œçº¦æŸ[cos(x+y),cos(x-y)] */
 	nu = clamp(nu, mu * mu_s - sqrt( (1.0 - mu * mu) * (1.0 - mu_s * mu_s) ),
 		    			mu * mu_s + sqrt( (1.0 - mu * mu) * (1.0 - mu_s * mu_s)));
 }
 
 /**
- * ¹¦ÄÜ:
- *  ÓĞÁËÒÔÉÏµÄº¯Êı,ÏÖÔÚÎÒÃÇ¿ÉÒÔ¼ÆËãÒ»¸öÖ¸¶¨µÄÎÆÀíµ¥Ôª¶ÔÓ¦µÄµ¥´ÎÉ¢Éä,½á¹û´æÈërayleighºÍmie
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,frag_coordÎª3DÎÆÀí×ø±ê
- *  ray_r_mu_intersects_groundÉäÏßÊÇ·ñÓëµØÃæÏà½»
+ * åŠŸèƒ½:
+ *  æœ‰äº†ä»¥ä¸Šçš„å‡½æ•°,ç°åœ¨æˆ‘ä»¬å¯ä»¥è®¡ç®—ä¸€ä¸ªæŒ‡å®šçš„çº¹ç†å•å…ƒå¯¹åº”çš„å•æ¬¡æ•£å°„,ç»“æœå­˜å…¥rayleighå’Œmie
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,frag_coordä¸º3Dçº¹ç†åæ ‡
+ *  ray_r_mu_intersects_groundå°„çº¿æ˜¯å¦ä¸åœ°é¢ç›¸äº¤
  **/
 void ComputeSingleScatteringTexture(IN(AtmosphereParameters)atmosphere,
 				     IN(TransmittanceTexture)transmittance_texture, IN(vec3)frag_coord,
@@ -582,41 +582,41 @@ void ComputeSingleScatteringTexture(IN(AtmosphereParameters)atmosphere,
 }
 
 /**
- * ¹¦ÄÜ:
- *  »ñÈ¡Éäµãµ½Óë×î½ü´óÆø²ã±ß½ç½»µãÖ®¼äµÄÉ¢ÉäÁ¿,ĞèÒªÁ½´Î3DµÄÎÆÀí²éÕÒ
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,scattering_textureÎªÉ¢ÉäÔ¤´æÎÆÀí,rÎªÊÓµãpº£°Î¸ß¶È,
- *  muÎªÊÓÏßÌì¶¥½ÇcosÖµ,mu_sÊÇÌ«Ñô·½ÏòÌì¶¥½ÇµÄcosÖµ,nuÊÇÏòÁ¿pqÓëÌ«Ñôµ¥Î»·½ÏòÏòÁ¿µÄ¼Ğ½ÇcosÖµ
- *  ray_r_mu_intersects_groundÉäÏßÊÇ·ñÓëµØÃæÏà½»
+ * åŠŸèƒ½:
+ *  è·å–å°„ç‚¹åˆ°ä¸æœ€è¿‘å¤§æ°”å±‚è¾¹ç•Œäº¤ç‚¹ä¹‹é—´çš„æ•£å°„é‡,éœ€è¦ä¸¤æ¬¡3Dçš„çº¹ç†æŸ¥æ‰¾
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,scattering_textureä¸ºæ•£å°„é¢„å­˜çº¹ç†,rä¸ºè§†ç‚¹pæµ·æ‹”é«˜åº¦,
+ *  muä¸ºè§†çº¿å¤©é¡¶è§’coså€¼,mu_sæ˜¯å¤ªé˜³æ–¹å‘å¤©é¡¶è§’çš„coså€¼,nuæ˜¯å‘é‡pqä¸å¤ªé˜³å•ä½æ–¹å‘å‘é‡çš„å¤¹è§’coså€¼
+ *  ray_r_mu_intersects_groundå°„çº¿æ˜¯å¦ä¸åœ°é¢ç›¸äº¤
  **/
 AbstractSpectrum GetScattering(IN(AtmosphereParameters)atmosphere,
 	IN(AbstractScatteringTexture)scattering_texture,
 	Length r, Number mu, Number mu_s, Number nu,
 	bool ray_r_mu_intersects_ground ){
-	/* ¸ù¾İ¸ø¶¨µÄ(r,mu,mu_s,nu)¼ÆËã¶ÔÓ¦µÄ4DÎÆÀí×ø±êuvwz */
+	/* æ ¹æ®ç»™å®šçš„(r,mu,mu_s,nu)è®¡ç®—å¯¹åº”çš„4Dçº¹ç†åæ ‡uvwz */
 	vec4 uvwz = GetScatteringTextureUvwzFromRMuMuSNu(
 						atmosphere, r, mu, mu_s, nu, ray_r_mu_intersects_ground );
 	Number	tex_coord_x	= uvwz.x * Number(SCATTERING_TEXTURE_NU_SIZE - 1);
-	Number	tex_x			= floor(tex_coord_x); /* ÕûÊı²¿·Ö */
-	Number	lerp			= tex_coord_x-tex_x;  /* Ğ¡Êı²¿·Ö */
+	Number	tex_x			= floor(tex_coord_x); /* æ•´æ•°éƒ¨åˆ† */
+	Number	lerp			= tex_coord_x-tex_x;  /* å°æ•°éƒ¨åˆ† */
 	vec3 uvw0 = vec3((tex_x + uvwz.y) / Number( SCATTERING_TEXTURE_NU_SIZE ),
 			  			uvwz.z, uvwz.w);
 	vec3 uvw1 = vec3((tex_x + 1.0 + uvwz.y) / Number( SCATTERING_TEXTURE_NU_SIZE ),
 			  			uvwz.z, uvwz.w);
-	/* ¸ù¾İlerpÏßĞÔ²åÖµ */
+	/* æ ¹æ®lerpçº¿æ€§æ’å€¼ */
 	return AbstractSpectrum(texture(scattering_texture, uvw0) * (1.0 - lerp) +
 				 			    texture(scattering_texture, uvw1) * lerp);
 }
 
 /**
- * ¹¦ÄÜ:
- *  »ñÈ¡Éäµãµ½Óë´óÆø²ã±ß½ç½»µã(»ò´óÆø¶¥²ã,»òµØ±íÃæ)Ö®¼äµÄÉ¢Éä·øÕÕ¶È,ĞèÒªÁ½´Î3DµÄÎÆÀí²éÕÒ
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,single_rayleigh_scattering_textureÎªrayleighµ¥´ÎÉ¢ÉäÎÆÀí,
- *  single_mie_scattering_textureÎªmieµ¥´ÊÉ¢ÉäÎÆÀí,multiple_scattering_texture
- *  rÎªÊÓµãp¸ß¶È,muÎªÊÓÏßÌì¶¥½ÇcosÖµ,mu_sÊÇÌ«Ñô·½ÏòÌì¶¥½ÇµÄcosÖµ,
- *  nuÊÇÏòÁ¿pqÓëÌ«Ñôµ¥Î»·½ÏòÏòÁ¿µÄ¼Ğ½ÇcosÖµ,ray_r_mu_intersects_groundÉäÏßÊÇ·ñÓëµØÃæÏà½»
- *  multiple_scattering_textureÎª¶à´ÎÉ¢ÉäÎÆÀí,scattering_orderÎªÉ¢ÉäÖØÊı
+ * åŠŸèƒ½:
+ *  è·å–å°„ç‚¹åˆ°ä¸å¤§æ°”å±‚è¾¹ç•Œäº¤ç‚¹(æˆ–å¤§æ°”é¡¶å±‚,æˆ–åœ°è¡¨é¢)ä¹‹é—´çš„æ•£å°„è¾ç…§åº¦,éœ€è¦ä¸¤æ¬¡3Dçš„çº¹ç†æŸ¥æ‰¾
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,single_rayleigh_scattering_textureä¸ºrayleighå•æ¬¡æ•£å°„çº¹ç†,
+ *  single_mie_scattering_textureä¸ºmieå•è¯æ•£å°„çº¹ç†,multiple_scattering_texture
+ *  rä¸ºè§†ç‚¹pé«˜åº¦,muä¸ºè§†çº¿å¤©é¡¶è§’coså€¼,mu_sæ˜¯å¤ªé˜³æ–¹å‘å¤©é¡¶è§’çš„coså€¼,
+ *  nuæ˜¯å‘é‡pqä¸å¤ªé˜³å•ä½æ–¹å‘å‘é‡çš„å¤¹è§’coså€¼,ray_r_mu_intersects_groundå°„çº¿æ˜¯å¦ä¸åœ°é¢ç›¸äº¤
+ *  multiple_scattering_textureä¸ºå¤šæ¬¡æ•£å°„çº¹ç†,scattering_orderä¸ºæ•£å°„é‡æ•°
  **/
 RadianceSpectrum GetScattering(
     IN(AtmosphereParameters) atmosphere,
@@ -626,44 +626,44 @@ RadianceSpectrum GetScattering(
     Length r, Number mu, Number mu_s, Number nu,
     bool ray_r_mu_intersects_ground,
     int scattering_order) {
-	if (scattering_order == 1) {//µ¥´ÎÉ¢Éä
+	if (scattering_order == 1) {//å•æ¬¡æ•£å°„
 		IrradianceSpectrum rayleigh = GetScattering(
         		atmosphere, single_rayleigh_scattering_texture, r, mu, mu_s, nu,
         		ray_r_mu_intersects_ground);
 		IrradianceSpectrum mie = GetScattering(
         		atmosphere, single_mie_scattering_texture, r, mu, mu_s, nu,
         		ray_r_mu_intersects_ground);
-	 // ×îºó»¹Òª³ËÉÏÏàÓ¦µÄÏàÎ»º¯Êı
+	 // æœ€åè¿˜è¦ä¹˜ä¸Šç›¸åº”çš„ç›¸ä½å‡½æ•°
     return rayleigh * RayleighPhaseFunction(nu) +
         		mie * MiePhaseFunction(atmosphere.mie_phase_function_g, nu);
-	} else {//¶à´ÎÉ¢Éä
+	} else {//å¤šæ¬¡æ•£å°„
 	return GetScattering(atmosphere, multiple_scattering_texture, r, mu, mu_s, nu,
         						ray_r_mu_intersects_ground);
   }
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¾­¹ın-2´ÎÉ¢ÉäµØÃæ½ÓÊÕµÄ·øÕÕ¶È
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,irradiance_texture·øÕÕ¶ÈÎÆÀí,
- *  single_mie_scattering_textureÎªmieµ¥´ÊÉ¢ÉäÎÆÀí,multiple_scattering_texture
- *  rÎªÊÓµãpº£°Î¸ß¶È,muÎªÊÓÏßÌì¶¥½ÇcosÖµ,mu_sÊÇÌ«Ñô·½ÏòÌì¶¥½ÇµÄcosÖµ,
+ * åŠŸèƒ½:
+ *  ç»è¿‡n-2æ¬¡æ•£å°„åœ°é¢æ¥æ”¶çš„è¾ç…§åº¦
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,irradiance_textureè¾ç…§åº¦çº¹ç†,
+ *  single_mie_scattering_textureä¸ºmieå•è¯æ•£å°„çº¹ç†,multiple_scattering_texture
+ *  rä¸ºè§†ç‚¹pæµ·æ‹”é«˜åº¦,muä¸ºè§†çº¿å¤©é¡¶è§’coså€¼,mu_sæ˜¯å¤ªé˜³æ–¹å‘å¤©é¡¶è§’çš„coså€¼,
  **/
 IrradianceSpectrum GetIrradiance(IN(AtmosphereParameters)atmosphere,
 									   IN(IrradianceTexture)irradiance_texture,
 										Length r, Number mu_s);
 
 /**
- * ¹¦ÄÜ:
- *  ¸ù¾İn-1ÖØµÄÉ¢ÉäÎÆÀí¼ÆËãµÚnÖØµÄÉ¢ÉäÃÜ¶È,·µ»Ø·øÉäÃÜ¶ÈÆ×
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_textureÎªÍ¸ÉäÂÊÎÆÀí,
- *  single_rayleigh_scattering_textureµ¥´ÎrayleighÉ¢ÉäÎÆÀí,
- *  single_mie_scattering_textureÎªmieµ¥´ÎÉ¢ÉäÎÆÀí,multiple_scattering_texture¶à´ÎÉ¢ÉäÎÆÀí
- *  irradiance_textureµØÃæ½ÓÊÕµÄ·øÕÕ¶ÈÎÆÀí,rÎª»ı·Öµãp¸ß¶È,muÎªÊÓÏßÌì¶¥½ÇcosÖµ,
- *  mu_sÊÇÌ«Ñô·½ÏòÌì¶¥½ÇµÄcosÖµ,nuÊÇÏòÁ¿pqÓëÌ«Ñôµ¥Î»·½ÏòÏòÁ¿µÄ¼Ğ½ÇcosÖµ,
- *  scattering_orderÉ¢Éä´ÎÊı
+ * åŠŸèƒ½:
+ *  æ ¹æ®n-1é‡çš„æ•£å°„çº¹ç†è®¡ç®—ç¬¬né‡çš„æ•£å°„å¯†åº¦,è¿”å›è¾å°„å¯†åº¦è°±
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureä¸ºé€å°„ç‡çº¹ç†,
+ *  single_rayleigh_scattering_textureå•æ¬¡rayleighæ•£å°„çº¹ç†,
+ *  single_mie_scattering_textureä¸ºmieå•æ¬¡æ•£å°„çº¹ç†,multiple_scattering_textureå¤šæ¬¡æ•£å°„çº¹ç†
+ *  irradiance_textureåœ°é¢æ¥æ”¶çš„è¾ç…§åº¦çº¹ç†,rä¸ºç§¯åˆ†ç‚¹pé«˜åº¦,muä¸ºè§†çº¿å¤©é¡¶è§’coså€¼,
+ *  mu_sæ˜¯å¤ªé˜³æ–¹å‘å¤©é¡¶è§’çš„coså€¼,nuæ˜¯å‘é‡pqä¸å¤ªé˜³å•ä½æ–¹å‘å‘é‡çš„å¤¹è§’coså€¼,
+ *  scattering_orderæ•£å°„æ¬¡æ•°
  **/
 RadianceDensitySpectrum ComputeScatteringDensity(
 	IN(AtmosphereParameters)atmosphere,
@@ -674,62 +674,62 @@ RadianceDensitySpectrum ComputeScatteringDensity(
 	IN(IrradianceTexture)irradiance_texture,
 	Length r, Number mu, Number mu_s, Number nu, int scattering_order ){
 	vec3 zenith_direction = vec3(0.0, 0.0, 1.0);
-	vec3	omega		= vec3(sqrt(1.0 - mu * mu), 0.0, mu);/* ÊÓÏß·½ÏòÏòÁ¿ */
+	vec3	omega		= vec3(sqrt(1.0 - mu * mu), 0.0, mu);/* è§†çº¿æ–¹å‘å‘é‡ */
 	Number	sun_dir_x	= omega.x == 0.0 ? 0.0 : (nu - mu * mu_s) / omega.x;
 	Number	sun_dir_y	= sqrt( max( 1.0 - sun_dir_x * sun_dir_x - mu_s * mu_s, 0.0 ) );
-	vec3	omega_s	= vec3(sun_dir_x, sun_dir_y, mu_s);/* Ì«Ñô·½ÏòÏòÁ¿ */
-	const int		SAMPLE_COUNT	= 16;//»ı·Ö²ÉÑùÊıu
-	const Angle		dphi		= pi / Number( SAMPLE_COUNT );//²ÉÑù²½³¤
+	vec3	omega_s	= vec3(sun_dir_x, sun_dir_y, mu_s);/* å¤ªé˜³æ–¹å‘å‘é‡ */
+	const int		SAMPLE_COUNT	= 16;//ç§¯åˆ†é‡‡æ ·æ•°u
+	const Angle		dphi		= pi / Number( SAMPLE_COUNT );//é‡‡æ ·æ­¥é•¿
 	const Angle		dtheta		= pi / Number( SAMPLE_COUNT );
 	RadianceDensitySpectrum rayleigh_mie	=
 			RadianceDensitySpectrum( 0.0 * watt_per_cubic_meter_per_sr_per_nm );
-	/* Ë«ÖØ»ı·Ö,thetaÎªÌì¶¥½Ç */
+	/* åŒé‡ç§¯åˆ†,thetaä¸ºå¤©é¡¶è§’ */
 	for (int l = 0; l < SAMPLE_COUNT; ++l){
 		Angle	theta		= (Number( l ) + 0.5) * dtheta;
 		Number	cos_theta	= cos( theta );
 		Number	sin_theta	= sin( theta );
-		/* ÅĞ¶ÏÊÇ·ñÓëµØÃæÓĞ½»µã */
+		/* åˆ¤æ–­æ˜¯å¦ä¸åœ°é¢æœ‰äº¤ç‚¹ */
 		bool ray_r_theta_intersects_ground = RayIntersectsGround(atmosphere, r, cos_theta);
-		/* µ±Ç°ÉäÏßµ½µØ±í½»µãµÄ¾àÀëÒÔ¼°¹âÑ§Éî¶È½öÈ¡¾öÓÚtheta(¼´Ìì¶¥½Ç),ËùÒÔ·Åµ½ÍâÑ­»·¼ÆËã */
+		/* å½“å‰å°„çº¿åˆ°åœ°è¡¨äº¤ç‚¹çš„è·ç¦»ä»¥åŠå…‰å­¦æ·±åº¦ä»…å–å†³äºtheta(å³å¤©é¡¶è§’),æ‰€ä»¥æ”¾åˆ°å¤–å¾ªç¯è®¡ç®— */
 		Length	distance_to_ground = 0.0 * m;
 		DimensionlessSpectrum transmittance_to_ground = DimensionlessSpectrum( 0.0 );
 		DimensionlessSpectrum ground_albedo = DimensionlessSpectrum( 0.0 );
-		/* ÓëµØÃæÓĞ½»µã */
+		/* ä¸åœ°é¢æœ‰äº¤ç‚¹ */
 		if (ray_r_theta_intersects_ground){
-			/* ÉäµãÑØÉäÏßµ½µØÃæµÄ¾àÀë */
+			/* å°„ç‚¹æ²¿å°„çº¿åˆ°åœ°é¢çš„è·ç¦» */
 			distance_to_ground = DistanceToBottomAtmosphereBoundary(atmosphere, r, cos_theta);
-			/* ÏàÓ¦µÄµ½µØÃæµÄÍ¸ÉäÂÊ */
+			/* ç›¸åº”çš„åˆ°åœ°é¢çš„é€å°„ç‡ */
 			transmittance_to_ground =
 				GetTransmittance( atmosphere, transmittance_texture, r, cos_theta,
 						  distance_to_ground, true /* ray_intersects_ground */ );
-			ground_albedo = atmosphere.ground_albedo;/* µØÃæ·´ÕÕÂÊ */
+			ground_albedo = atmosphere.ground_albedo;/* åœ°é¢åç…§ç‡ */
 		}
-		for ( int m = 0; m < 2 * SAMPLE_COUNT; ++m ){/* ÄÚÑ­»·»ı·Ö,ÕâÀï»ıµÄÊÇ·½Î»½Ç */
+		for ( int m = 0; m < 2 * SAMPLE_COUNT; ++m ){/* å†…å¾ªç¯ç§¯åˆ†,è¿™é‡Œç§¯çš„æ˜¯æ–¹ä½è§’ */
 			Angle phi = (Number(m) + 0.5) * dphi;
-			/* ÓÉphi(·½Î»½Ç)ºÍtheta(Ìì¶¥½Ç)Á½¸ö½Ç¶ÈÖ¸¶¨µÄ·½ÏòÏòÁ¿ */
+			/* ç”±phi(æ–¹ä½è§’)å’Œtheta(å¤©é¡¶è§’)ä¸¤ä¸ªè§’åº¦æŒ‡å®šçš„æ–¹å‘å‘é‡ */
 			vec3 omega_i = vec3( cos( phi ) * sin_theta, sin( phi ) * sin_theta, cos_theta );
-			/* Á¢Ìå½Çdomega=sin(theta)*dtheta*dphi; */
+			/* ç«‹ä½“è§’domega=sin(theta)*dtheta*dphi; */
 			SolidAngle domega_i = (dtheta / rad) * (dphi / rad) * sin( theta ) * sr;
-			/*¾­¹ın-1´Î·´Éä´Óomega_i·½ÏòµÄ·øÉä¶ÈL_iÓÉn-1ÖØÉ¢ÉäµÄÉ¢ÉäÖµÀÛ¼Ó¡£
-			 * Ì«Ñô·½ÏòÏòÁ¿Óëomge_iÏòÁ¿¼Ğ½ÇµÄcosÖµ */
+			/*ç»è¿‡n-1æ¬¡åå°„ä»omega_iæ–¹å‘çš„è¾å°„åº¦L_iç”±n-1é‡æ•£å°„çš„æ•£å°„å€¼ç´¯åŠ ã€‚
+			 * å¤ªé˜³æ–¹å‘å‘é‡ä¸omge_iå‘é‡å¤¹è§’çš„coså€¼ */
 			Number nu1 = dot(omega_s, omega_i);
-			/* »ñÈ¡n-1É¢ÉäÔÚ´Ë²ÉÑùµã½ÓÊÕµÄÈëÉä¹âÏß·øÉä¶È */
+			/* è·å–n-1æ•£å°„åœ¨æ­¤é‡‡æ ·ç‚¹æ¥æ”¶çš„å…¥å°„å…‰çº¿è¾å°„åº¦ */
 			RadianceSpectrum incident_radiance = GetScattering(atmosphere,
 									    single_rayleigh_scattering_texture, single_mie_scattering_texture,
 									    multiple_scattering_texture, r, omega_i.z, mu_s, nu1,
 									    ray_r_theta_intersects_ground, scattering_order - 1);
-			/* ²ÉÑùµã½ÓÊÕµØÃæ·øÉäµÄ¹âÏß,Õâ²¿·ÖµÄÖµÖ÷ÒªÊÇÓÉ²ÉÑùµãµ½µØÃæµÄ¹âÑ§Éî¶È¡¢
-			 * µØÃæ·´ÕÕÂÊ¡¢µØÃæµÄBRDFÒÔ¼°µØÃæÎüÊÕµÄn-2´Î·´ÉäµÄ·øÕÕ¶ÈµÄ³Ë»ı */
+			/* é‡‡æ ·ç‚¹æ¥æ”¶åœ°é¢è¾å°„çš„å…‰çº¿,è¿™éƒ¨åˆ†çš„å€¼ä¸»è¦æ˜¯ç”±é‡‡æ ·ç‚¹åˆ°åœ°é¢çš„å…‰å­¦æ·±åº¦ã€
+			 * åœ°é¢åç…§ç‡ã€åœ°é¢çš„BRDFä»¥åŠåœ°é¢å¸æ”¶çš„n-2æ¬¡åå°„çš„è¾ç…§åº¦çš„ä¹˜ç§¯ */
 			vec3 ground_normal = normalize(zenith_direction * r + omega_i * distance_to_ground);
-			/* µØÃæÎüÊÕµÄn-2´Î·´ÉäµÄ·øÕÕ¶È */
+			/* åœ°é¢å¸æ”¶çš„n-2æ¬¡åå°„çš„è¾ç…§åº¦ */
 			IrradianceSpectrum ground_irradiance = GetIrradiance(
 								atmosphere, irradiance_texture, atmosphere.bottom_radius,
 								dot(ground_normal, omega_s));
 			incident_radiance += transmittance_to_ground *
 					     ground_albedo * (1.0 / (PI * sr)) * ground_irradiance;
 
-			/* ´Óomega_i·½ÏòÏò-omega·½ÏòÉ¢ÉäµÄ·øÉä¶ÈÎªincident_radiance¡¢
-			 * É¢ÉäÏµÊı¡¢·½ÏòomegaºÍomega_iµÄÏàÎ»º¯ÊıÖ®»ı */
+			/* ä»omega_iæ–¹å‘å‘-omegaæ–¹å‘æ•£å°„çš„è¾å°„åº¦ä¸ºincident_radianceã€
+			 * æ•£å°„ç³»æ•°ã€æ–¹å‘omegaå’Œomega_içš„ç›¸ä½å‡½æ•°ä¹‹ç§¯ */
 			Number	nu2			= dot(omega, omega_i);
 			Number	rayleigh_density	= GetProfileDensity(
 						atmosphere.rayleigh_density, r - atmosphere.bottom_radius );
@@ -746,14 +746,14 @@ RadianceDensitySpectrum ComputeScatteringDensity(
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËã¶àÖØÉ¢ÉäÏµÊı(´ÓÊÓµãr´¦µ½Óë±ß½ç(»ò´óÆø¶¥²ã»òµØÃæ)½»µãµÄÄÚÉ¢Éä»ı·Ö)
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_textureÎªÍ¸ÉäÂÊÎÆÀí,
- *  scattering_density_textureÉ¢ÉäÃÜ¶ÈÎÆÀí,
- *  rÎªÊÓµãp¸ß¶È,muÎªÊÓÏßÌì¶¥½ÇcosÖµ,
- *  mu_sÊÇÌ«Ñô·½ÏòÌì¶¥½ÇµÄcosÖµ,nuÊÇÏòÁ¿pqÓëÌ«Ñôµ¥Î»·½ÏòÏòÁ¿µÄ¼Ğ½ÇcosÖµ,
- *  ray_r_mu_intersects_groundÊÇ·ñÓëµØÃæÏà½»
+ * åŠŸèƒ½:
+ *  è®¡ç®—å¤šé‡æ•£å°„ç³»æ•°(ä»è§†ç‚¹rå¤„åˆ°ä¸è¾¹ç•Œ(æˆ–å¤§æ°”é¡¶å±‚æˆ–åœ°é¢)äº¤ç‚¹çš„å†…æ•£å°„ç§¯åˆ†)
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureä¸ºé€å°„ç‡çº¹ç†,
+ *  scattering_density_textureæ•£å°„å¯†åº¦çº¹ç†,
+ *  rä¸ºè§†ç‚¹pé«˜åº¦,muä¸ºè§†çº¿å¤©é¡¶è§’coså€¼,
+ *  mu_sæ˜¯å¤ªé˜³æ–¹å‘å¤©é¡¶è§’çš„coså€¼,nuæ˜¯å‘é‡pqä¸å¤ªé˜³å•ä½æ–¹å‘å‘é‡çš„å¤¹è§’coså€¼,
+ *  ray_r_mu_intersects_groundæ˜¯å¦ä¸åœ°é¢ç›¸äº¤
  **/
 RadianceSpectrum ComputeMultipleScattering(
 	IN(AtmosphereParameters)atmosphere,
@@ -761,19 +761,19 @@ RadianceSpectrum ComputeMultipleScattering(
 	IN(ScatteringDensityTexture)scattering_density_texture,
 	Length r, Number mu, Number mu_s, Number nu,
 	bool ray_r_mu_intersects_ground ){
-	const int SAMPLE_COUNT = 50; /* »ı·Ö²ÉÑùÊı */
-	Length dx =	/* »ı·Ö²½³¤ */
+	const int SAMPLE_COUNT = 50; /* ç§¯åˆ†é‡‡æ ·æ•° */
+	Length dx =	/* ç§¯åˆ†æ­¥é•¿ */
 				DistanceToNearestAtmosphereBoundary(
 					atmosphere, r, mu, ray_r_mu_intersects_ground )/Number(SAMPLE_COUNT);
 	RadianceSpectrum rayleigh_mie_sum =
 				RadianceSpectrum( 0.0 * watt_per_square_meter_per_sr_per_nm );
 	for ( int i = 0; i <= SAMPLE_COUNT; ++i ){
 		Length d_i = Number( i ) * dx;
-		/* µ±Ç°²ÉÑù»ı·ÖµãµÄ¸ß¶Èr_i */
+		/* å½“å‰é‡‡æ ·ç§¯åˆ†ç‚¹çš„é«˜åº¦r_i */
 		Length r_i = ClampRadius(atmosphere, sqrt(d_i * d_i + 2.0 * r * mu * d_i + r * r));
 		Number	mu_i	= ClampCosine((r * mu + d_i) / r_i);
 		Number	mu_s_i	= ClampCosine((r * mu_s + d_i * nu) / r_i);
-		/* µ±Ç°²ÉÑùµãµÄrayleighÉ¢ÉäÏµÊı¡¢mieÉ¢ÉäÏµÊı */
+		/* å½“å‰é‡‡æ ·ç‚¹çš„rayleighæ•£å°„ç³»æ•°ã€mieæ•£å°„ç³»æ•° */
 		RadianceSpectrum rayleigh_mie_i =
 				GetScattering(
 					atmosphere, scattering_density_texture, r_i, mu_i, mu_s_i, nu,
@@ -788,15 +788,15 @@ RadianceSpectrum ComputeMultipleScattering(
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãµ±Ç°3DÎÆÀí×ø±ê¶ÔÓ¦µÄ(r,mu,mu_s,nu)´¦½ÓÊÕµÄÉ¢Éä·øÕÕ¶È
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_textureÎª¹âÑ§Éî¶ÈÎÆÀí,
- *  single_rayleigh_scattering_textureµ¥´ÎrayleighÉ¢ÉäÎÆÀí,
- *  single_mie_scattering_textureÎªmieµ¥´ÎÉ¢ÉäÎÆÀí,
- *  multiple_scattering_texture¶à´ÎÉ¢ÉäÎÆÀí
- *  irradiance_textureµØÃæ½ÓÊÕµÄ·øÕÕ¶ÈÎÆÀí,frag_coordÎª3DÎÆÀí×ø±ê,
- *  scattering_orderÉ¢ÉäÖØÊı
+ * åŠŸèƒ½:
+ *  è®¡ç®—å½“å‰3Dçº¹ç†åæ ‡å¯¹åº”çš„(r,mu,mu_s,nu)å¤„æ¥æ”¶çš„æ•£å°„è¾ç…§åº¦
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureä¸ºå…‰å­¦æ·±åº¦çº¹ç†,
+ *  single_rayleigh_scattering_textureå•æ¬¡rayleighæ•£å°„çº¹ç†,
+ *  single_mie_scattering_textureä¸ºmieå•æ¬¡æ•£å°„çº¹ç†,
+ *  multiple_scattering_textureå¤šæ¬¡æ•£å°„çº¹ç†
+ *  irradiance_textureåœ°é¢æ¥æ”¶çš„è¾ç…§åº¦çº¹ç†,frag_coordä¸º3Dçº¹ç†åæ ‡,
+ *  scattering_orderæ•£å°„é‡æ•°
  **/
 RadianceDensitySpectrum ComputeScatteringDensityTexture(
 	IN(AtmosphereParameters)atmosphere,
@@ -811,7 +811,7 @@ RadianceDensitySpectrum ComputeScatteringDensityTexture(
 	Number	mu_s;
 	Number	nu;
 	bool	ray_r_mu_intersects_ground;
-	/* ´Ófrag_coordµÄ3DÎÆÀí×ø±ê¼ÆËã³öµ±Ç°µÄ(r,mu,mu_s,nu) */
+	/* ä»frag_coordçš„3Dçº¹ç†åæ ‡è®¡ç®—å‡ºå½“å‰çš„(r,mu,mu_s,nu) */
 	GetRMuMuSNuFromScatteringTextureFragCoord( atmosphere, frag_coord,
 						   r, mu, mu_s, nu, ray_r_mu_intersects_ground );
 	return ComputeScatteringDensity(atmosphere, transmittance_texture,
@@ -822,13 +822,13 @@ RadianceDensitySpectrum ComputeScatteringDensityTexture(
 
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãµ±Ç°3DÎÆÀí×ø±ê¶ÔÓ¦µÄ(r,mu,mu_s,nu)´¦µÄ¶àÖØÉ¢ÉäÏµÊı
- *  ´ÓÊÓµãµ½´óÆø¶¥²ãµÄÂ·¾¶ÉÏµÄ¹âÑ§Éî¶È
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_textureÎª¹âÑ§Éî¶ÈÎÆÀí,
- *  scattering_density_textureÎªÉ¢ÉäÆ×ÎÆÀí,frag_coordÎª3DÎÆÀí×ø±ê,
- *  nuÎªÉäÏß(r,mu)ÓëÌ«Ñô·½ÏòÏòÁ¿¼Ğ½ÇcosÖµ
+ * åŠŸèƒ½:
+ *  è®¡ç®—å½“å‰3Dçº¹ç†åæ ‡å¯¹åº”çš„(r,mu,mu_s,nu)å¤„çš„å¤šé‡æ•£å°„ç³»æ•°
+ *  ä»è§†ç‚¹åˆ°å¤§æ°”é¡¶å±‚çš„è·¯å¾„ä¸Šçš„å…‰å­¦æ·±åº¦
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureä¸ºå…‰å­¦æ·±åº¦çº¹ç†,
+ *  scattering_density_textureä¸ºæ•£å°„è°±çº¹ç†,frag_coordä¸º3Dçº¹ç†åæ ‡,
+ *  nuä¸ºå°„çº¿(r,mu)ä¸å¤ªé˜³æ–¹å‘å‘é‡å¤¹è§’coså€¼
  **/
 RadianceSpectrum ComputeMultipleScatteringTexture(
 	IN(AtmosphereParameters)atmosphere,
@@ -839,7 +839,7 @@ RadianceSpectrum ComputeMultipleScatteringTexture(
 	Number	mu;
 	Number	mu_s;
 	bool	ray_r_mu_intersects_ground;
-	/* ´Ófrag_coordµÄ3DÎÆÀí×ø±ê¼ÆËã³öµ±Ç°µÄ(r,mu,mu_s,nu) */
+	/* ä»frag_coordçš„3Dçº¹ç†åæ ‡è®¡ç®—å‡ºå½“å‰çš„(r,mu,mu_s,nu) */
 	GetRMuMuSNuFromScatteringTextureFragCoord(atmosphere, frag_coord,
 						   r, mu, mu_s, nu, ray_r_mu_intersects_ground);
 	return ComputeMultipleScattering(atmosphere, transmittance_texture,
@@ -848,18 +848,18 @@ RadianceSpectrum ComputeMultipleScatteringTexture(
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãµØÃæ½ÓÊÕµÄÖ±½Ó·øÕÕ¶È
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_textureÎª¹âÑ§Éî¶ÈÎÆÀí,
- *  scattering_density_textureÎªÉ¢ÉäÆ×ÎÆÀí,(r,mu_s)Îª(ÊÓµã¸ß¶È,Ìì¶¥½Ç)
+ * åŠŸèƒ½:
+ *  è®¡ç®—åœ°é¢æ¥æ”¶çš„ç›´æ¥è¾ç…§åº¦
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureä¸ºå…‰å­¦æ·±åº¦çº¹ç†,
+ *  scattering_density_textureä¸ºæ•£å°„è°±çº¹ç†,(r,mu_s)ä¸º(è§†ç‚¹é«˜åº¦,å¤©é¡¶è§’)
  **/
 IrradianceSpectrum ComputeDirectIrradiance(
 	IN(AtmosphereParameters)atmosphere,
 	IN(TransmittanceTexture)transmittance_texture,
 	Length r, Number mu_s){
-	Number alpha_s = atmosphere.sun_angular_radius / rad;//Ì«Ñô½Ç°ë¾¶
-	/* Ì«ÑôÔ²ÅÌ¿É¼û²¿·ÖµÄ½üËÆÆ½¾ùÓàÏÒÒò×Ó */
+	Number alpha_s = atmosphere.sun_angular_radius / rad;//å¤ªé˜³è§’åŠå¾„
+	/* å¤ªé˜³åœ†ç›˜å¯è§éƒ¨åˆ†çš„è¿‘ä¼¼å¹³å‡ä½™å¼¦å› å­ */
 	Number average_cosine_factor = mu_s < -alpha_s ? 0.0 : (mu_s > alpha_s ? mu_s :
 					 (mu_s + alpha_s) * (mu_s + alpha_s) / (4.0 * alpha_s) );
 	return atmosphere.solar_irradiance *
@@ -868,13 +868,13 @@ IrradianceSpectrum ComputeDirectIrradiance(
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãµØÃæµÄ¼ä½Ó·øÕÕ¶È,¶ÔÒÔµØÃæ·¨ÏßÎªÖáµÄ°ëÇò½øĞĞ»ı·Ö
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,single_rayleigh_scattering_textureÎªµ¥´ÎrayleighÉ¢ÉäÎÆÀí,
- *  single_mie_scattering_textureÎªµ¥´ÎmieÉ¢ÉäÎÆÀí,
- *  multiple_scattering_texture¶à´ÎÉ¢ÉäÎÆÀí,
- *  (r,mu_s)Îª(º£°Î¸ß¶È,Ìì¶¥½Ç),scattering_orderÉ¢Éä´ÎÊı
+ * åŠŸèƒ½:
+ *  è®¡ç®—åœ°é¢çš„é—´æ¥è¾ç…§åº¦,å¯¹ä»¥åœ°é¢æ³•çº¿ä¸ºè½´çš„åŠçƒè¿›è¡Œç§¯åˆ†
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,single_rayleigh_scattering_textureä¸ºå•æ¬¡rayleighæ•£å°„çº¹ç†,
+ *  single_mie_scattering_textureä¸ºå•æ¬¡mieæ•£å°„çº¹ç†,
+ *  multiple_scattering_textureå¤šæ¬¡æ•£å°„çº¹ç†,
+ *  (r,mu_s)ä¸º(æµ·æ‹”é«˜åº¦,å¤©é¡¶è§’),scattering_orderæ•£å°„æ¬¡æ•°
  **/
 IrradianceSpectrum ComputeIndirectIrradiance(
 	IN(AtmosphereParameters)atmosphere,
@@ -882,24 +882,24 @@ IrradianceSpectrum ComputeIndirectIrradiance(
 	IN(ReducedScatteringTexture)single_mie_scattering_texture,
 	IN(ScatteringTexture)multiple_scattering_texture,
 	Length r, Number mu_s, int scattering_order ){
-	const int	SAMPLE_COUNT	= 32;/* »ı·Ö²ÉÑùÊı */
-	const Angle	dphi		= pi / Number( SAMPLE_COUNT );/* ²ÉÑù²½³¤ */
+	const int	SAMPLE_COUNT	= 32;/* ç§¯åˆ†é‡‡æ ·æ•° */
+	const Angle	dphi		= pi / Number( SAMPLE_COUNT );/* é‡‡æ ·æ­¥é•¿ */
 	const Angle	dtheta		= pi / Number( SAMPLE_COUNT );
 
 	IrradianceSpectrum result =
 			IrradianceSpectrum( 0.0 * watt_per_square_meter_per_nm );
-	/* ÉäÏß(r,mu_s)µÄ·½ÏòÏòÁ¿ */
+	/* å°„çº¿(r,mu_s)çš„æ–¹å‘å‘é‡ */
 	vec3 omega_s = vec3( sqrt( 1.0 - mu_s * mu_s ), 0.0, mu_s );
-	/* ¶ÔÕû¸ö°ëÇò½øĞĞË«ÖØ»ı·Ö */
-	for ( int j = 0; j < SAMPLE_COUNT / 2; ++j ){//ÕâÀï³ıÒÔ2ÊÇÒòÎªÖ»¶Ô°ëÇò»ı·Ö
+	/* å¯¹æ•´ä¸ªåŠçƒè¿›è¡ŒåŒé‡ç§¯åˆ† */
+	for ( int j = 0; j < SAMPLE_COUNT / 2; ++j ){//è¿™é‡Œé™¤ä»¥2æ˜¯å› ä¸ºåªå¯¹åŠçƒç§¯åˆ†
 		Angle theta = (Number( j ) + 0.5) * dtheta;
 		for ( int i = 0; i < 2 * SAMPLE_COUNT; ++i ){
 			Angle phi = (Number( i ) + 0.5) * dphi;
-			vec3 omega = /* (theta,phi)Ö¸¶¨µÄ·½ÏòÏòÁ¿ */
+			vec3 omega = /* (theta,phi)æŒ‡å®šçš„æ–¹å‘å‘é‡ */
 				vec3( cos( phi ) * sin( theta ), sin( phi ) * sin( theta ), cos( theta ) );
-			/* Á¢Ìå½ÇÎ¢Ôªdomega */
+			/* ç«‹ä½“è§’å¾®å…ƒdomega */
 			SolidAngle domega = (dtheta / rad) * (dphi / rad) * sin( theta ) * sr;
-			/* omegaÓëomega_sµÄ¼Ğ½ÇcosÖµ */
+			/* omegaä¸omega_sçš„å¤¹è§’coså€¼ */
 			Number nu = dot( omega, omega_s );
 			result += GetScattering( atmosphere, single_rayleigh_scattering_texture,
 						 single_mie_scattering_texture, multiple_scattering_texture,
@@ -911,26 +911,26 @@ IrradianceSpectrum ComputeIndirectIrradiance(
 }
 
 /**
- * ¹¦ÄÜ:
- *  ½«²ÎÊı(r,mu_s)Ó³Éäµ½(u,v)ÎÆÀí×ø±ê,ÓÃÓÚµØÃæ½ÓÊÕµÄ·øÕÕ¶ÈµÄÔ¤¼ÆËã
- *  ÒòÎªµØÃæ·øÕÕ¶ÈµÄ¼ÆËã½ö¿¼ÂÇÁËË®Æ½Ãæ,ËùÒÔ·øÕÕ¶È¼ÆËã½öĞè²ÎÊı(r,mu_s)
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ, (r,mu_s)Îª(¸ß¶È,Ìì¶¥½Ç)
+ * åŠŸèƒ½:
+ *  å°†å‚æ•°(r,mu_s)æ˜ å°„åˆ°(u,v)çº¹ç†åæ ‡,ç”¨äºåœ°é¢æ¥æ”¶çš„è¾ç…§åº¦çš„é¢„è®¡ç®—
+ *  å› ä¸ºåœ°é¢è¾ç…§åº¦çš„è®¡ç®—ä»…è€ƒè™‘äº†æ°´å¹³é¢,æ‰€ä»¥è¾ç…§åº¦è®¡ç®—ä»…éœ€å‚æ•°(r,mu_s)
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹, (r,mu_s)ä¸º(é«˜åº¦,å¤©é¡¶è§’)
  **/
 vec2 GetIrradianceTextureUvFromRMuS( IN(AtmosphereParameters)atmosphere,
 				     Length r, Number mu_s ){
 	Number x_r = (r - atmosphere.bottom_radius) /
-		     (atmosphere.top_radius - atmosphere.bottom_radius);/* ½«rÍ¶Ó°µ½[0,1]Ö®¼ä */
-	Number x_mu_s = mu_s * 0.5 + 0.5;/* Í¬Àí½«mu_sÓÉ[-1,1]Í¶Ó°µ½[0,1] */
+		     (atmosphere.top_radius - atmosphere.bottom_radius);/* å°†ræŠ•å½±åˆ°[0,1]ä¹‹é—´ */
+	Number x_mu_s = mu_s * 0.5 + 0.5;/* åŒç†å°†mu_sç”±[-1,1]æŠ•å½±åˆ°[0,1] */
 	return(vec2( GetTextureCoordFromUnitRange( x_mu_s, IRRADIANCE_TEXTURE_WIDTH ),
 		     GetTextureCoordFromUnitRange( x_r, IRRADIANCE_TEXTURE_HEIGHT ) ) );
 }
 
 /**
- * ¹¦ÄÜ:
- *  ½«ÎÆÀí×ø±ê(u,v)Ó³Éäµ½²ÎÊı(r,mu_s),GetIrradianceTextureUvFromRMuSµÄÄæ¹ı³Ì
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,uvÎª2DÎÆÀí×ø±ê,(r,mu_s)Îª(¸ß¶È,Ìì¶¥½Ç)
+ * åŠŸèƒ½:
+ *  å°†çº¹ç†åæ ‡(u,v)æ˜ å°„åˆ°å‚æ•°(r,mu_s),GetIrradianceTextureUvFromRMuSçš„é€†è¿‡ç¨‹
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,uvä¸º2Dçº¹ç†åæ ‡,(r,mu_s)ä¸º(é«˜åº¦,å¤©é¡¶è§’)
  **/
 void GetRMuSFromIrradianceTextureUv( IN(AtmosphereParameters)atmosphere,
 				     IN(vec2)uv, OUT(Length)r, OUT(Number)mu_s ){
@@ -941,16 +941,16 @@ void GetRMuSFromIrradianceTextureUv( IN(AtmosphereParameters)atmosphere,
 	mu_s = ClampCosine( 2.0 * x_mu_s - 1.0 );
 }
 
-// ·øÕÕ¶ÈÎÆÀí´óĞ¡
+// è¾ç…§åº¦çº¹ç†å¤§å°
 const vec2 IRRADIANCE_TEXTURE_SIZE =
     vec2(IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT);
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãµØÃæµÄÖ±½Ó´ÓÌ«Ñô½ÓÊÕµÄ·øÕÕ¶È
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_textureÎª¹âÑ§Éî¶ÈÎÆÀí,
- *  frag_coordÎª2DÎÆÀí×ø±ê
+ * åŠŸèƒ½:
+ *  è®¡ç®—åœ°é¢çš„ç›´æ¥ä»å¤ªé˜³æ¥æ”¶çš„è¾ç…§åº¦
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureä¸ºå…‰å­¦æ·±åº¦çº¹ç†,
+ *  frag_coordä¸º2Dçº¹ç†åæ ‡
  **/
 IrradianceSpectrum ComputeDirectIrradianceTexture(
 	IN(AtmosphereParameters)atmosphere,
@@ -958,21 +958,21 @@ IrradianceSpectrum ComputeDirectIrradianceTexture(
 	IN(vec2)frag_coord ){
 	Length	r;
 	Number	mu_s;
-	/* ¸ù¾İÎÆÀí×ø±êfrag_coord¼ÆËã³ö(r,mu_s) */
+	/* æ ¹æ®çº¹ç†åæ ‡frag_coordè®¡ç®—å‡º(r,mu_s) */
 	GetRMuSFromIrradianceTextureUv(
 		atmosphere, frag_coord / IRRADIANCE_TEXTURE_SIZE, r, mu_s );
-	/* ÓÃÓÚ¼ÆËãÖ±½Ó·øÕÕ¶È */
+	/* ç”¨äºè®¡ç®—ç›´æ¥è¾ç…§åº¦ */
 	return(ComputeDirectIrradiance( atmosphere, transmittance_texture, r, mu_s ) );
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãµØÃæµÄ¼ä½Ó·øÕÕ¶È
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,single_rayleigh_scattering_textureµ¥ÖØrayleighÉ¢ÉäÎÆÀí,
- *  single_mie_scattering_textureÎªµ¥ÖØmieÉ¢ÉäÎÆÀí,
- *  multiple_scattering_textureÎª¶àÖØÉ¢ÉäÎÆÀí
- *  frag_coordÎª2DÎÆÀí×ø±ê,scattering_orderÎªÉ¢ÉäÖØÊı
+ * åŠŸèƒ½:
+ *  è®¡ç®—åœ°é¢çš„é—´æ¥è¾ç…§åº¦
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,single_rayleigh_scattering_textureå•é‡rayleighæ•£å°„çº¹ç†,
+ *  single_mie_scattering_textureä¸ºå•é‡mieæ•£å°„çº¹ç†,
+ *  multiple_scattering_textureä¸ºå¤šé‡æ•£å°„çº¹ç†
+ *  frag_coordä¸º2Dçº¹ç†åæ ‡,scattering_orderä¸ºæ•£å°„é‡æ•°
  **/
 IrradianceSpectrum ComputeIndirectIrradianceTexture(
 	IN(AtmosphereParameters)atmosphere,
@@ -990,11 +990,11 @@ IrradianceSpectrum ComputeIndirectIrradianceTexture(
 }
 
 /**
- * ¹¦ÄÜ:
- *  Í¨¹ı¶Ô·øÕÕ¶ÈÎÆÀí²éÕÒÒ»´Î,»ñÈ¡µØÃæ·øÕÕ¶ÈÖµ
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,irradiance_textureÎª·øÕÕ¶ÈÎÆÀí,
- *  (r,mu_s)Îª(¸ß¶È,Ìì¶¥½Ç)
+ * åŠŸèƒ½:
+ *  é€šè¿‡å¯¹è¾ç…§åº¦çº¹ç†æŸ¥æ‰¾ä¸€æ¬¡,è·å–åœ°é¢è¾ç…§åº¦å€¼
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,irradiance_textureä¸ºè¾ç…§åº¦çº¹ç†,
+ *  (r,mu_s)ä¸º(é«˜åº¦,å¤©é¡¶è§’)
  **/
 IrradianceSpectrum GetIrradiance(
 	IN(AtmosphereParameters)atmosphere,
@@ -1005,10 +1005,10 @@ IrradianceSpectrum GetIrradiance(
 }
 
 /**
- * ¹¦ÄÜ:
- *  ÔÚ½«rayleighºÍmieÉ¢ÉäÎÆÀíºÏ²¢Ê±,´ÓÖĞÍÆ³ömieµ¥ÖØÉ¢ÉäÖµ
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,scatteringÎªºÏ²¢µÄµ¥ÖØÉ¢ÉäÖµ
+ * åŠŸèƒ½:
+ *  åœ¨å°†rayleighå’Œmieæ•£å°„çº¹ç†åˆå¹¶æ—¶,ä»ä¸­æ¨å‡ºmieå•é‡æ•£å°„å€¼
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,scatteringä¸ºåˆå¹¶çš„å•é‡æ•£å°„å€¼
  **/
 #ifdef COMBINED_SCATTERING_TEXTURES
 vec3 GetExtrapolatedSingleMieScattering(
@@ -1021,14 +1021,14 @@ vec3 GetExtrapolatedSingleMieScattering(
 #endif
 
 /**
- * ¹¦ÄÜ:
- *  ´ÓÎÆÀíÖĞ»ñÈ¡ÄÚÉ¢ÉäÖµ(ÔÚºÏ²¢ÎÆÀíµÄÇé¿öµ÷ÓÃÒÔÏÂº¯Êı)
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,scattering_textureÉ¢ÉäÎÆÀí,
- *  single_mie_scattering_textureÎªµ¥´ÎmieÉ¢ÉäÎÆÀí,
- *  (r,mu,mu_s,nu)Îª(¸ß¶È,Ìì¶¥½Ç,Ì«ÑôÌì¶¥½Ç,ÉäÏß(r,mu)ÓëÌ«Ñô·½ÏòÏòÁ¿¼Ğ½ÇcosÖµ)
- *  ray_r_mu_intersects_groundÊÇ·ñÓëµØÃæÏà½»,
- *  single_mie_scatteringÎªµ¥ÖØmieÉ¢Éä·øÕÕ¶È
+ * åŠŸèƒ½:
+ *  ä»çº¹ç†ä¸­è·å–å†…æ•£å°„å€¼(åœ¨åˆå¹¶çº¹ç†çš„æƒ…å†µè°ƒç”¨ä»¥ä¸‹å‡½æ•°)
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,scattering_textureæ•£å°„çº¹ç†,
+ *  single_mie_scattering_textureä¸ºå•æ¬¡mieæ•£å°„çº¹ç†,
+ *  (r,mu,mu_s,nu)ä¸º(é«˜åº¦,å¤©é¡¶è§’,å¤ªé˜³å¤©é¡¶è§’,å°„çº¿(r,mu)ä¸å¤ªé˜³æ–¹å‘å‘é‡å¤¹è§’coså€¼)
+ *  ray_r_mu_intersects_groundæ˜¯å¦ä¸åœ°é¢ç›¸äº¤,
+ *  single_mie_scatteringä¸ºå•é‡mieæ•£å°„è¾ç…§åº¦
  **/
 IrradianceSpectrum GetCombinedScattering(
 	IN(AtmosphereParameters)atmosphere,
@@ -1037,17 +1037,17 @@ IrradianceSpectrum GetCombinedScattering(
 	Length r, Number mu, Number mu_s, Number nu,
 	bool ray_r_mu_intersects_ground,
 	OUT(IrradianceSpectrum)single_mie_scattering){
-	/* ½«(nu,mu_s,mu,r)Ó³Éäµ½ÎÆÀí×ø±ê(u,v,w,z),ÓëÇ°ÃæÒ»Ñù,»¹Òª½«4DÎÆÀí×ø±êÓ³Éäµ½3D */
+	/* å°†(nu,mu_s,mu,r)æ˜ å°„åˆ°çº¹ç†åæ ‡(u,v,w,z),ä¸å‰é¢ä¸€æ ·,è¿˜è¦å°†4Dçº¹ç†åæ ‡æ˜ å°„åˆ°3D */
 	vec4 uvwz = GetScatteringTextureUvwzFromRMuMuSNu(
 			atmosphere, r, mu, mu_s, nu, ray_r_mu_intersects_ground );
 	Number	tex_coord_x	= uvwz.x * Number(SCATTERING_TEXTURE_NU_SIZE - 1);
-	Number	tex_x			= floor( tex_coord_x ); /* ÕûÊı²¿·Ö */
-	Number	lerp			= tex_coord_x - tex_x;  /* Ğ¡Êı²¿·Ö */
+	Number	tex_x			= floor( tex_coord_x ); /* æ•´æ•°éƒ¨åˆ† */
+	Number	lerp			= tex_coord_x - tex_x;  /* å°æ•°éƒ¨åˆ† */
 	vec3	uvw0			= vec3( (tex_x + uvwz.y) / Number( SCATTERING_TEXTURE_NU_SIZE ),
 									uvwz.z, uvwz.w );
 	vec3	uvw1 			= vec3( (tex_x + 1.0 + uvwz.y) / Number( SCATTERING_TEXTURE_NU_SIZE ),
 			  						uvwz.z, uvwz.w );
-	/* ¶ÔÓÚºÏ²¢³ÉÒ»¸öÎÆÀíµÄ·½°¸,Ö»²ÉÑùscattering_texture,È»ºó·Ö³öÆäÖĞµÄmie_scattering */
+	/* å¯¹äºåˆå¹¶æˆä¸€ä¸ªçº¹ç†çš„æ–¹æ¡ˆ,åªé‡‡æ ·scattering_texture,ç„¶ååˆ†å‡ºå…¶ä¸­çš„mie_scattering */
 #ifdef COMBINED_SCATTERING_TEXTURES
 	vec4 combined_scattering =
 			texture( scattering_texture, uvw0 ) * (1.0 - lerp) +
@@ -1055,7 +1055,7 @@ IrradianceSpectrum GetCombinedScattering(
 	IrradianceSpectrum scattering = IrradianceSpectrum( combined_scattering );
 	single_mie_scattering =
 			GetExtrapolatedSingleMieScattering( atmosphere, combined_scattering );
-#else/* ·ÇºÏ²¢µÄÇé¿ö,Ö±½Ó²ÉÑù¸÷×ÔµÄÎÆÀí */
+#else/* éåˆå¹¶çš„æƒ…å†µ,ç›´æ¥é‡‡æ ·å„è‡ªçš„çº¹ç† */
 	IrradianceSpectrum scattering = IrradianceSpectrum(
 			texture( scattering_texture, uvw0 ) * (1.0 - lerp) +
 			texture( scattering_texture, uvw1 ) * lerp );
@@ -1067,12 +1067,12 @@ IrradianceSpectrum GetCombinedScattering(
 }
 
 /**
- * ¹¦ÄÜ:
- *  »ñÈ¡Ìì¿ÕµÄ·øÕÕ¶È
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_textureÎª¹âÑ§Éî¶ÈÎÆÀí,scattering_textureÉ¢ÉäÎÆÀí,
- *  single_mie_scattering_textureÎªµ¥´ÎmieÉ¢ÉäÎÆÀí,cameraÊÓµãÎ»ÖÃ,view_rayÊÓÏßÏòÁ¿
- *  shadow_lengthÒõÓ°³¤¶È,ÓÉÒõÓ°ÌåËã·¨¼ÆËãµÃµ½,sun_directionÌ«Ñô·½ÏòÏòÁ¿,transmittanceÍ¸ÉäÂÊ
+ * åŠŸèƒ½:
+ *  è·å–å¤©ç©ºçš„è¾ç…§åº¦
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureä¸ºå…‰å­¦æ·±åº¦çº¹ç†,scattering_textureæ•£å°„çº¹ç†,
+ *  single_mie_scattering_textureä¸ºå•æ¬¡mieæ•£å°„çº¹ç†,cameraè§†ç‚¹ä½ç½®,view_rayè§†çº¿å‘é‡
+ *  shadow_lengthé˜´å½±é•¿åº¦,ç”±é˜´å½±ä½“ç®—æ³•è®¡ç®—å¾—åˆ°,sun_directionå¤ªé˜³æ–¹å‘å‘é‡,transmittanceé€å°„ç‡
  **/
 RadianceSpectrum GetSkyRadiance(
 	IN(AtmosphereParameters)atmosphere,
@@ -1081,39 +1081,39 @@ RadianceSpectrum GetSkyRadiance(
 	IN(ReducedScatteringTexture)single_mie_scattering_texture,
 	Position camera, IN(Direction)view_ray, Length shadow_length,
 	IN(Direction)sun_direction, OUT(DimensionlessSpectrum)transmittance){
-	Length r = length(camera);/* ÊÓµãËùÔÚµÄ¸ß¶È */
-	Length rmu = dot( camera, view_ray );/* r*Ìì¶¥½ÇcosÖµ */
-	/* ÊÓµãÑØÊÓÏßµ½´óÆø²ã¶¥²ãµÄ¾àÀë */
+	Length r = length(camera);/* è§†ç‚¹æ‰€åœ¨çš„é«˜åº¦ */
+	Length rmu = dot( camera, view_ray );/* r*å¤©é¡¶è§’coså€¼ */
+	/* è§†ç‚¹æ²¿è§†çº¿åˆ°å¤§æ°”å±‚é¡¶å±‚çš„è·ç¦» */
 	Length distance_to_top_atmosphere_boundary = -rmu -
 					sqrt( rmu * rmu - r * r + atmosphere.top_radius * atmosphere.top_radius );
-	/* Èç¹û¹Û²ìÕßÔÚÌ«¿ÕÇÒÊÓÏßÓë´óÆø²ãÓĞ½»µã,°Ñ¹Û²ìÕßÒÆµ½ÊÓÏßÓë´óÆø²ã¶¥²¿½»µãµÄÎ»ÖÃ */
+	/* å¦‚æœè§‚å¯Ÿè€…åœ¨å¤ªç©ºä¸”è§†çº¿ä¸å¤§æ°”å±‚æœ‰äº¤ç‚¹,æŠŠè§‚å¯Ÿè€…ç§»åˆ°è§†çº¿ä¸å¤§æ°”å±‚é¡¶éƒ¨äº¤ç‚¹çš„ä½ç½® */
 	if ( distance_to_top_atmosphere_boundary > 0.0 * m ){
 		camera	= camera + view_ray * distance_to_top_atmosphere_boundary;
 		r	= atmosphere.top_radius;
 		rmu	+= distance_to_top_atmosphere_boundary;
 	} else if (r > atmosphere.top_radius){
-		/* ÊÓÏßÓë´óÆø²ãÎŞ½»µã,Ö±½Ó·µ»Ø0 */
+		/* è§†çº¿ä¸å¤§æ°”å±‚æ— äº¤ç‚¹,ç›´æ¥è¿”å›0 */
 		transmittance = DimensionlessSpectrum( 1.0 );
 		return(RadianceSpectrum( 0.0 * watt_per_square_meter_per_sr_per_nm));
 	}
-	/* ¼ÆËã(r,mu,mu_s,nu)¼´(¸ß¶È,Ìì¶¥½Çcos,Ì«ÑôÌì¶¥½Çcos,Ì«Ñô·½ÏòÏòÁ¿ÓëÊÓÏß¼Ğ½Çcos) */
+	/* è®¡ç®—(r,mu,mu_s,nu)å³(é«˜åº¦,å¤©é¡¶è§’cos,å¤ªé˜³å¤©é¡¶è§’cos,å¤ªé˜³æ–¹å‘å‘é‡ä¸è§†çº¿å¤¹è§’cos) */
 	Number	mu		= rmu / r;
 	Number	mu_s	= dot( camera, sun_direction ) / r;
 	Number	nu		= dot( view_ray, sun_direction );
-	/* ¼ì²âÊÓÏßÊÇ·ñÓëµØÃæÏà½» */
+	/* æ£€æµ‹è§†çº¿æ˜¯å¦ä¸åœ°é¢ç›¸äº¤ */
 	bool ray_r_mu_intersects_ground = RayIntersectsGround(atmosphere, r, mu);
-	/* ÓëµØÃæÏà½»Ôò¹âÑ§Éî¶ÈÎª0 */
+	/* ä¸åœ°é¢ç›¸äº¤åˆ™å…‰å­¦æ·±åº¦ä¸º0 */
 	transmittance = ray_r_mu_intersects_ground ? DimensionlessSpectrum( 0.0 ) :
 			GetTransmittanceToTopAtmosphereBoundary(atmosphere, transmittance_texture, r, mu );
 	IrradianceSpectrum	single_mie_scattering;
 	IrradianceSpectrum	scattering;
-	if ( shadow_length == 0.0 * m ){/* Èç¹û²»ĞèÒªÌå»ı¹âĞ§¹û */
+	if ( shadow_length == 0.0 * m ){/* å¦‚æœä¸éœ€è¦ä½“ç§¯å…‰æ•ˆæœ */
 		scattering = GetCombinedScattering(
 				atmosphere, scattering_texture, single_mie_scattering_texture,
 				r, mu, mu_s, nu, ray_r_mu_intersects_ground,single_mie_scattering );
 	} else {
-		/* ÊµÏÖÌå»ı¹âĞ§¹û:ÎÒÃÇÊ¡È¥´ÓÉãÏñ»ú³ö·¢ÑØ×ÅÊÓÏß³¤¶ÈÎªshadow_lengthµÄÕâ¶ÎµÄÉ¢Éä¼ÆËã, 
-		 * Ö»¼ÆËãÊ£ÏÂµÄÄÇ¶Î,¼´ÑØÊÓÏß³¤¶ÈÎªd´¦µÄµãµ½´óÆø¶¥²ã½»µãÕâÒ»¶Î */
+		/* å®ç°ä½“ç§¯å…‰æ•ˆæœ:æˆ‘ä»¬çœå»ä»æ‘„åƒæœºå‡ºå‘æ²¿ç€è§†çº¿é•¿åº¦ä¸ºshadow_lengthçš„è¿™æ®µçš„æ•£å°„è®¡ç®—, 
+		 * åªè®¡ç®—å‰©ä¸‹çš„é‚£æ®µ,å³æ²¿è§†çº¿é•¿åº¦ä¸ºdå¤„çš„ç‚¹åˆ°å¤§æ°”é¡¶å±‚äº¤ç‚¹è¿™ä¸€æ®µ */
 		Length	d		= shadow_length;
 		Length	r_p		= ClampRadius(atmosphere, sqrt(d*d+2.0*r*mu*d+r*r));
 		Number	mu_p	= (r * mu + d) / r_p;
@@ -1122,7 +1122,7 @@ RadianceSpectrum GetSkyRadiance(
 				atmosphere, scattering_texture, single_mie_scattering_texture,
 				r_p, mu_p, mu_s_p, nu, ray_r_mu_intersects_ground,
 				single_mie_scattering);
-		/* ÊÓµãpµ½ÑØÊÓÏßÔÚ³¤¶Èshadow_length´¦µÄµãµÄ¹âÑ§Éî¶È */
+		/* è§†ç‚¹påˆ°æ²¿è§†çº¿åœ¨é•¿åº¦shadow_lengthå¤„çš„ç‚¹çš„å…‰å­¦æ·±åº¦ */
 		DimensionlessSpectrum shadow_transmittance =
 					GetTransmittance(atmosphere, transmittance_texture,
 					  		r, mu, shadow_length, ray_r_mu_intersects_ground);
@@ -1134,12 +1134,12 @@ RadianceSpectrum GetSkyRadiance(
 }
 
 /**
- * ¹¦ÄÜ:
- *  »ñÈ¡ÊÓµãµ½Ä³Ò»µãµÄ·øÕÕ¶È
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_textureÎª¹âÑ§Éî¶ÈÎÆÀí,scattering_textureÉ¢ÉäÎÆÀí,
- *  single_mie_scattering_textureÎªµ¥´ÎmieÉ¢ÉäÎÆÀí,cameraÊÓµãÎ»ÖÃ,pointÄ¿±êÎ»ÖÃ,
- *  shadow_lengthÒõÓ°³¤¶È,sun_directionÌ«Ñô·½ÏòÏòÁ¿,transmittance¹âÑ§Éî¶È
+ * åŠŸèƒ½:
+ *  è·å–è§†ç‚¹åˆ°æŸä¸€ç‚¹çš„è¾ç…§åº¦
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureä¸ºå…‰å­¦æ·±åº¦çº¹ç†,scattering_textureæ•£å°„çº¹ç†,
+ *  single_mie_scattering_textureä¸ºå•æ¬¡mieæ•£å°„çº¹ç†,cameraè§†ç‚¹ä½ç½®,pointç›®æ ‡ä½ç½®,
+ *  shadow_lengthé˜´å½±é•¿åº¦,sun_directionå¤ªé˜³æ–¹å‘å‘é‡,transmittanceå…‰å­¦æ·±åº¦
  **/
 RadianceSpectrum GetSkyRadianceToPoint(
 	IN(AtmosphereParameters)atmosphere,
@@ -1148,66 +1148,66 @@ RadianceSpectrum GetSkyRadianceToPoint(
 	IN(ReducedScatteringTexture)single_mie_scattering_texture,
 	Position camera, IN(Position)point, Length shadow_length,
 	IN(Direction)sun_direction, OUT(DimensionlessSpectrum)transmittance ){
-	Direction	view_ray	= normalize( point - camera );/* ÊÓÏß·½ÏòÏòÁ¿ */
-	Length		r			= length(camera);             /* º£°Î¸ß¶È */
-	Length		rmu			= dot(camera, view_ray);      /* r*Ìì¶¥½ÇcosÖµ */
-	/* µ½´ï´óÆø²ã¶¥²¿µÄ¾àÀë */
+	Direction	view_ray	= normalize( point - camera );/* è§†çº¿æ–¹å‘å‘é‡ */
+	Length		r			= length(camera);             /* æµ·æ‹”é«˜åº¦ */
+	Length		rmu			= dot(camera, view_ray);      /* r*å¤©é¡¶è§’coså€¼ */
+	/* åˆ°è¾¾å¤§æ°”å±‚é¡¶éƒ¨çš„è·ç¦» */
 	Length distance_to_top_atmosphere_boundary = -rmu -
 				sqrt(rmu * rmu - r * r + atmosphere.top_radius * atmosphere.top_radius);
-	/* Èç¹ûÊÓµãÔÚÌ«¿ÕÖĞ, ÇÒÊÓÏßÓë´óÆø²ãÓĞ½»µã,ÄÇÃ´°ÑviewÑØ×ÅÊÓÏßÒÆ¶¯µ½´óÆø²ã¶¥²¿ */
+	/* å¦‚æœè§†ç‚¹åœ¨å¤ªç©ºä¸­, ä¸”è§†çº¿ä¸å¤§æ°”å±‚æœ‰äº¤ç‚¹,é‚£ä¹ˆæŠŠviewæ²¿ç€è§†çº¿ç§»åŠ¨åˆ°å¤§æ°”å±‚é¡¶éƒ¨ */
 	if ( distance_to_top_atmosphere_boundary > 0.0 * m ){
 		camera	= camera + view_ray * distance_to_top_atmosphere_boundary;
 		r		= atmosphere.top_radius;
 		rmu	   += distance_to_top_atmosphere_boundary;
 	}
-	/* ¼ÆËã(r,mu,mu_s,nu)²ÎÊıÓÃÓÚµÚÒ»´ÎÎÆÀí²éÕÒ,µÃµ½cameraµ½´óÆø²ã±ß½çµÄÄÚÉ¢Éä»ı·Ö */
+	/* è®¡ç®—(r,mu,mu_s,nu)å‚æ•°ç”¨äºç¬¬ä¸€æ¬¡çº¹ç†æŸ¥æ‰¾,å¾—åˆ°cameraåˆ°å¤§æ°”å±‚è¾¹ç•Œçš„å†…æ•£å°„ç§¯åˆ† */
 	Number	mu		= rmu / r;
 	Number	mu_s	= dot(camera, sun_direction)/r;
 	Number	nu		= dot(view_ray, sun_direction);
-	Length	d		= length(point - camera); /* Ä¿±êpointµ½ÉãÏñ»úµÄ¾àÀë */
-	/* ¼ì²âÊÓÏßÊÇ·ñÓëµØÃæÏà½» */
+	Length	d		= length(point - camera); /* ç›®æ ‡pointåˆ°æ‘„åƒæœºçš„è·ç¦» */
+	/* æ£€æµ‹è§†çº¿æ˜¯å¦ä¸åœ°é¢ç›¸äº¤ */
 	bool ray_r_mu_intersects_ground = RayIntersectsGround(atmosphere, r, mu);
-	/* »ñÈ¡ÔÚcameraµ½pointµÄ¹âÑ§³¤¶È */
+	/* è·å–åœ¨cameraåˆ°pointçš„å…‰å­¦é•¿åº¦ */
 	transmittance = GetTransmittance(atmosphere, transmittance_texture,
 					  		r, mu, d, ray_r_mu_intersects_ground);
-	/* »ñÈ¡cameraµ½´óÆø±ß½çµÄrayleighÄÚÉ¢Éä»ı·Ö */
+	/* è·å–cameraåˆ°å¤§æ°”è¾¹ç•Œçš„rayleighå†…æ•£å°„ç§¯åˆ† */
 	IrradianceSpectrum	single_mie_scattering;
 	IrradianceSpectrum	scattering = GetCombinedScattering(
 			atmosphere, scattering_texture, single_mie_scattering_texture,
 			r, mu, mu_s, nu, ray_r_mu_intersects_ground,
 			single_mie_scattering);
 
-	/* ¼ÆËã(r,mu,mu_s,nu)ÓÃÓÚµÚ¶ş´ÎÎÆÀí²éÕÒ,»ñÈ¡µãpointµ½´óÆø²ã±ß½çµÄÄÚÉ¢Éä»ı·Ö
-	 * Èç¹ûĞèÒªÊµÏÖÌå»ı¹âĞ§¹û(shadow_length>0),ÄÇÃ´ÎÒÃÇÓ¦¸ÃºöÂÔÊÓÏß·½ÏòÄ©¶ËµÄshadow_length³¤¶ÈµÄÉ¢Éä
-	 * Òò´ËÁîd=d-shadow_length*/
+	/* è®¡ç®—(r,mu,mu_s,nu)ç”¨äºç¬¬äºŒæ¬¡çº¹ç†æŸ¥æ‰¾,è·å–ç‚¹pointåˆ°å¤§æ°”å±‚è¾¹ç•Œçš„å†…æ•£å°„ç§¯åˆ†
+	 * å¦‚æœéœ€è¦å®ç°ä½“ç§¯å…‰æ•ˆæœ(shadow_length>0),é‚£ä¹ˆæˆ‘ä»¬åº”è¯¥å¿½ç•¥è§†çº¿æ–¹å‘æœ«ç«¯çš„shadow_lengthé•¿åº¦çš„æ•£å°„
+	 * å› æ­¤ä»¤d=d-shadow_length*/
 	d = max(d - shadow_length, 0.0 * m);
-	/* point´¦¸ß¶È */
+	/* pointå¤„é«˜åº¦ */
 	Length r_p = ClampRadius(atmosphere, sqrt( d * d + 2.0 * r * mu * d + r * r ));
-	Number	mu_p	= (r * mu + d) / r_p;/* point´¦Ìì¶¥½Çcos */
-	Number	mu_s_p	= (r * mu_s + d * nu) / r_p;/* point´¦Ì«Ñô·½ÏòÌì¶¥½Çcos */
+	Number	mu_p	= (r * mu + d) / r_p;/* pointå¤„å¤©é¡¶è§’cos */
+	Number	mu_s_p	= (r * mu_s + d * nu) / r_p;/* pointå¤„å¤ªé˜³æ–¹å‘å¤©é¡¶è§’cos */
 
-	/* ²éÕÒpointµã´¦µÄÄÚÉ¢ÉäÎÆÀí */
+	/* æŸ¥æ‰¾pointç‚¹å¤„çš„å†…æ•£å°„çº¹ç† */
 	IrradianceSpectrum	single_mie_scattering_p;
 	IrradianceSpectrum	scattering_p = GetCombinedScattering(
 			atmosphere, scattering_texture, single_mie_scattering_texture,
 			r_p, mu_p, mu_s_p, nu, ray_r_mu_intersects_ground,
 			single_mie_scattering_p );
-	/* °ÑÒÔÉÏ²éÕÒ½á¹û×ÛºÏÆğÀ´µÃµ½cameraµ½pointÖ®¼äµÄÉ¢Éä */
+	/* æŠŠä»¥ä¸ŠæŸ¥æ‰¾ç»“æœç»¼åˆèµ·æ¥å¾—åˆ°cameraåˆ°pointä¹‹é—´çš„æ•£å°„ */
 	DimensionlessSpectrum shadow_transmittance = transmittance;
-	if ( shadow_length > 0.0 * m ){/* ÒªÊµÏÖÌå»ı¹âĞ§¹û */
+	if ( shadow_length > 0.0 * m ){/* è¦å®ç°ä½“ç§¯å…‰æ•ˆæœ */
 		shadow_transmittance = GetTransmittance( atmosphere, transmittance_texture,
 							 		r, mu, d, ray_r_mu_intersects_ground );
 	}
-	/* cameraµ½pointµÄÉ¢Éä=cameraµ½´óÆø²ã±ß½çµÄscattering-pointµ½´óÆø²ã±ß½çµÄscattering */
+	/* cameraåˆ°pointçš„æ•£å°„=cameraåˆ°å¤§æ°”å±‚è¾¹ç•Œçš„scattering-pointåˆ°å¤§æ°”å±‚è¾¹ç•Œçš„scattering */
 	scattering = scattering - shadow_transmittance * scattering_p;
 	single_mie_scattering	=
 			single_mie_scattering - shadow_transmittance * single_mie_scattering_p;
 #ifdef COMBINED_SCATTERING_TEXTURES
-	/* ¶ÔÓÚcombinedµÄ·½°¸,ĞèÒª½«mieµ¥´ÎÉ¢Éä´ÓscatteringÌáÈ¡³öÀ´ */
+	/* å¯¹äºcombinedçš„æ–¹æ¡ˆ,éœ€è¦å°†mieå•æ¬¡æ•£å°„ä»scatteringæå–å‡ºæ¥ */
 	single_mie_scattering = GetExtrapolatedSingleMieScattering(
 				atmosphere, vec4(scattering, single_mie_scattering.r));
 #endif
-	/* °£¶ûÃ×ÌØ²åÖµ,±ÜÃâÌ«ÑôÔÚË®Æ½ÏßÒÔÏÂÊ±Ê§Õæ */
+	/* åŸƒå°”ç±³ç‰¹æ’å€¼,é¿å…å¤ªé˜³åœ¨æ°´å¹³çº¿ä»¥ä¸‹æ—¶å¤±çœŸ */
 	single_mie_scattering = single_mie_scattering *
 					smoothstep(Number(0.0), Number(0.01), mu_s);
 	return scattering * RayleighPhaseFunction(nu) + single_mie_scattering *
@@ -1215,11 +1215,11 @@ RadianceSpectrum GetSkyRadianceToPoint(
 }
 
 /**
- * ¹¦ÄÜ:
- *  ¼ÆËãµØ±íµÄ·øÕÕ¶È
- * ´«Èë²ÎÊı£º
- *  atmosphere´óÆø²ÎÊıÄ£ĞÍ,transmittance_textureÎª¹âÑ§³¤¶ÈÎÆÀí,irradiance_texture·øÕÕ¶ÈÎÆÀí,
- *  pointÄ¿±êÎ»ÖÃ,normalµØÃæ·¨Ïß,sun_directionÌ«Ñô·½ÏòÏòÁ¿,sky_irradianceÌì¿Õs·øÕÕ¶È
+ * åŠŸèƒ½:
+ *  è®¡ç®—åœ°è¡¨çš„è¾ç…§åº¦
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  atmosphereå¤§æ°”å‚æ•°æ¨¡å‹,transmittance_textureä¸ºå…‰å­¦é•¿åº¦çº¹ç†,irradiance_textureè¾ç…§åº¦çº¹ç†,
+ *  pointç›®æ ‡ä½ç½®,normalåœ°é¢æ³•çº¿,sun_directionå¤ªé˜³æ–¹å‘å‘é‡,sky_irradianceå¤©ç©ºsè¾ç…§åº¦
  **/
 IrradianceSpectrum GetSunAndSkyIrradiance(
 	IN(AtmosphereParameters)atmosphere,
@@ -1227,12 +1227,12 @@ IrradianceSpectrum GetSunAndSkyIrradiance(
 	IN(IrradianceTexture)irradiance_texture,
 	IN(Position)point, IN(Direction)normal, IN(Direction)sun_direction,
 	OUT(IrradianceSpectrum)sky_irradiance ){
-	Length r = length(point);/* pointµãº£°Î¸ß¶È */
-	Number mu_s = dot(point, sun_direction) / r;/* ÏàÓ¦µÄÌì¶¥½Ç */
-	/* ¼ä½Ó·øÕÕ¶È */
+	Length r = length(point);/* pointç‚¹æµ·æ‹”é«˜åº¦ */
+	Number mu_s = dot(point, sun_direction) / r;/* ç›¸åº”çš„å¤©é¡¶è§’ */
+	/* é—´æ¥è¾ç…§åº¦ */
 	sky_irradiance = GetIrradiance( atmosphere, irradiance_texture, r, mu_s ) *
 			 				(1.0 + dot( normal, point ) / r) * 0.5;
-	/* Ö±½Ó·øÕÕ¶È */
+	/* ç›´æ¥è¾ç…§åº¦ */
 	return atmosphere.solar_irradiance *
 	       GetTransmittanceToSun(atmosphere, transmittance_texture, r, mu_s ) *
 	       max(dot( normal, sun_direction), 0.0);

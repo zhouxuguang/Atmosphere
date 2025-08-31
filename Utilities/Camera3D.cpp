@@ -8,7 +8,8 @@ Camera3D::~Camera3D() {}
 
 QVector3D Camera3D::getPosition(){
     // Get camera position
-    QVector4D tmp(0,0,0,1);
+    //QVector4D tmp(0,0,0,1);
+    QVector3D tmp(0,0,0);
     tmp = this->m_translation * tmp;
     return QVector3D(tmp.x(),tmp.y(),tmp.z());
 }
@@ -77,7 +78,7 @@ const QMatrix4x4 &Camera3D::toMatrix(){
     if (m_dirty){
         m_dirty = false;
         m_world.setToIdentity();
-        m_world.rotate(m_rotation.conjugate());
+        m_world.rotate(m_rotation.conjugated());
         m_world.translate(-m_translation);
     }
     return m_world;

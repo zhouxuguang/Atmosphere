@@ -1,7 +1,7 @@
 #ifndef OPENGLWIDGET_H
 #define OPENGLWIDGET_H
 
-#include <QOpenGLFunctions_4_3_Core>
+#include <QOpenGLFunctions_4_1_Core>
 #include <QOpenGLWidget>
 
 
@@ -14,7 +14,7 @@ class DUpdateEvent;
 
 class OpenGLWidgetPrivate;
 class OpenGLWidget : public QOpenGLWidget,
-        public QOpenGLFunctions_4_3_Core
+        public QOpenGLFunctions_4_1_Core
 {
     Q_OBJECT
 public:

@@ -50,7 +50,7 @@ void OpenGLWidget::initializeGL(){
 
     // Initialize
     initializeOpenGLFunctions();
-    GlobalContext::contextFunc = dynamic_cast<QOpenGLFunctions_4_3_Core*>(this);
+    GlobalContext::contextFunc = dynamic_cast<QOpenGLFunctions_4_1_Core*>(this);
     connect(this, SIGNAL(frameSwapped()), this, SLOT(update()));
     connect(this, SIGNAL(frameSwapped()), &m_private->m_frameTimer, SLOT(frameSwapped()));
 

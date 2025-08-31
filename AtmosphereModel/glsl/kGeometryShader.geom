@@ -2,7 +2,7 @@
 layout(triangles) in;
 layout(triangle_strip, max_vertices = 3) out;
 uniform int layer;
-// ¶ÔÓÚ3DÎÆÀí£¬ÎÒÃÇÒªÈ·¶¨Ğ´ÈëµÄÊÇÄÄÒ»²ã
+// å¯¹äº3Dçº¹ç†ï¼Œæˆ‘ä»¬è¦ç¡®å®šå†™å…¥çš„æ˜¯å“ªä¸€å±‚
 void main() {
 	gl_Position = gl_in[0].gl_Position;
 	gl_Layer = layer;
