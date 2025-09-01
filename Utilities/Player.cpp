@@ -51,6 +51,8 @@ Player &Player::operator=(Player &target){
     upwardsSpeed = 0;
     isInAir = false;
     m_frameTimer.start();
+
+    return *this;
 }
 
 void Player::move(){

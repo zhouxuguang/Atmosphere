@@ -110,36 +110,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/Demo
 )
 
-# 设置输出目录
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
-set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
-
-# 安装规则
-install(TARGETS ${PROJECT_NAME}
-    RUNTIME DESTINATION bin
-    BUNDLE DESTINATION .
-)
-
-# Windows 特定配置
-if(WIN32)
-    # 添加资源文件用于图标
-    set(APP_ICON ${CMAKE_CURRENT_SOURCE_DIR}/app.ico)
-    
-    add_custom_command(
-        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/app_res.rc
-        COMMAND echo "IDI_ICON1 ICON DISCARDABLE \"${APP_ICON}\"" > ${CMAKE_CURRENT_BINARY_DIR}/app_res.rc
-        VERBATIM
-    )
-    
-    target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/app_res.rc)
-    
-    # 隐藏控制台窗口
-    # set_target_properties(${PROJECT_NAME} PROPERTIES
-    #     WIN32_EXECUTABLE ON
-    #     LINK_FLAGS "/SUBSYSTEM:WINDOWS"
-    # )
-endif()
-
 # macOS 特定配置
 if(APPLE)
     set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.example.Atmosphere")
@@ -151,9 +121,4 @@ if(APPLE)
     #     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist
     #     MACOSX_BUNDLE ON
     # )
-endif()
-
-# 添加测试子目录 (可选)
-if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/tests AND IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
-    add_subdirectory(tests)
 endif()
