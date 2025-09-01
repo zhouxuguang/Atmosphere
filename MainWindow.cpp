@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QSurfaceFormat glFormat;
     glFormat.setRenderableType(QSurfaceFormat::OpenGL);
     glFormat.setProfile(QSurfaceFormat::CoreProfile);
-    glFormat.setVersion(4,1);
+    glFormat.setVersion(4, 1);
     formats.push_back(glFormat);
     // Find out which version we support
     QSurfaceFormat *format = getFirstSupported(formats);
@@ -37,6 +37,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QPalette pl = ui->instructions->palette();
     pl.setBrush(QPalette::Base,QBrush(QColor(255,0,0,0)));
     ui->instructions->setPalette(pl);
+        
+    connect(ui->spectrum_ComboBox, &QComboBox::currentTextChanged, this, &MainWindow::on_spectrum_ComboBox_currentIndexChanged);
+    connect(ui->ozone_ComboBox, &QComboBox::currentTextChanged, this, &MainWindow::on_ozone_ComboBox_currentIndexChanged);
+    connect(ui->float_ComboBox, &QComboBox::currentTextChanged, this, &MainWindow::on_float_ComboBox_currentIndexChanged);
+    connect(ui->texture_ComboBox, &QComboBox::currentTextChanged, this, &MainWindow::on_texture_ComboBox_currentIndexChanged);
 
     // fps
     connect(canvas,&DrawCanvas::sendFPS,this,&MainWindow::receiveFPS);
