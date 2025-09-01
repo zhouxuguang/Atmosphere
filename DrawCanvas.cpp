@@ -63,10 +63,15 @@ void DrawCanvas::initializeGL(){
 }
 
 void DrawCanvas::resizeGL(int width, int height){
-    OpenGLWidget::resizeGL(width, height);
+
+	// 获取设备像素比
+	qreal ratio = devicePixelRatio();
+
+    OpenGLWidget::resizeGL(width * ratio, height * ratio);
     F(OGL_Function);
-    f->glViewport(0,0,this->width(),this->height());
-    demo->resize(width,height);
+
+    f->glViewport(0,0,this->width() * ratio, this->height() * ratio);
+    demo->resize(width * ratio, height * ratio);
 }
 
 void DrawCanvas::paintGL(){
@@ -77,8 +82,11 @@ void DrawCanvas::paintGL(){
     }
     F(OGL_Function);
 
+	// 获取设备像素比
+	qreal ratio = devicePixelRatio();
+
     // Set rendering state
-    f->glViewport(0,0,width(),height());
+    f->glViewport(0,0,width() * ratio, height() * ratio);
     f->glClearColor(0.5,0.5,0.5,1.0);
     f->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     f->glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
