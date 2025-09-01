@@ -1,4 +1,4 @@
-in vec3 view_ray;//µ±Ç°ÏñËØµÄÊÓÏß
+in vec3 view_ray;//å½“å‰åƒç´ çš„è§†çº¿
 
 uniform vec3 camera;
 uniform vec3 earth_center;
@@ -27,7 +27,7 @@ float GetSunVisibility(vec3 point, vec3 sun_direction){
 	vec3	p			= point - kSphereCenter;
 	float	p_dot_v   = dot( p, sun_direction );
 	float	p_dot_p	= dot( p, p );
-	// ÇòÌåÖĞĞÄµ½ÊÓÏßµÄ´¹Ö±¾àÀëµÄÆ½·½
+	// çƒä½“ä¸­å¿ƒåˆ°è§†çº¿çš„å‚ç›´è·ç¦»çš„å¹³æ–¹
 	float	ray_sphere_center_squared_distance = p_dot_p - p_dot_v * p_dot_v;
 	float	distance_to_intersection		= -p_dot_v - sqrt(
 		kSphereRadius * kSphereRadius - ray_sphere_center_squared_distance );
@@ -90,7 +90,7 @@ void main(){
   	// Hack to fade out light shafts when the Sun is very close to the horizon.
   	float lightshaft_fadein_hack = smoothstep(0.02, 0.04, dot(normalize(camera - earth_center), sun_direction));
 
-	// ¼ÆËãÊÓÏßÓëÇòÌåÖĞĞÄµÄ¾àÀëÒÔ¼°½»µãµ½Ïà»úµÄ¾àÀë
+	// è®¡ç®—è§†çº¿ä¸çƒä½“ä¸­å¿ƒçš„è·ç¦»ä»¥åŠäº¤ç‚¹åˆ°ç›¸æœºçš„è·ç¦»
 	vec3 p = camera - kSphereCenter;
   	float p_dot_v = dot(p, view_direction);
   	float p_dot_p = dot(p, p);
@@ -98,19 +98,19 @@ void main(){
   	float distance_to_intersection = -p_dot_v - sqrt(
       kSphereRadius * kSphereRadius - ray_sphere_center_squared_distance);
 
-	// Èç¹ûÏà½»
+	// å¦‚æœç›¸äº¤
   	float sphere_alpha = 0.0;
   	vec3 sphere_radiance = vec3(0.0);
 	if(distance_to_intersection > 0.0f) {
-		// ÊÓÏßµ½ÇòÌå±ß½çµÄ¾àÀë
+		// è§†çº¿åˆ°çƒä½“è¾¹ç•Œçš„è·ç¦»
 		float ray_sphere_distance = kSphereRadius - sqrt(ray_sphere_center_squared_distance);
-		// ÊÓÏßÓëÇòÌåµÄ½»µãµÄ½Ç¾àÀë(ÕıÇĞÖµ)
+		// è§†çº¿ä¸çƒä½“çš„äº¤ç‚¹çš„è§’è·ç¦»(æ­£åˆ‡å€¼)
     	float ray_sphere_angular_distance = -ray_sphere_distance / p_dot_v;
     	sphere_alpha = min(ray_sphere_angular_distance / fragment_angular_size, 1.0);
 		
-		// ½»µã
+		// äº¤ç‚¹
     	vec3 point = camera + view_direction * distance_to_intersection;
-		// ½»µãµÄ·¨Ïß
+		// äº¤ç‚¹çš„æ³•çº¿
     	vec3 normal = normalize(point - kSphereCenter);
 		
 		// Compute the radiance reflected by the sphere.
@@ -129,7 +129,7 @@ void main(){
     	sphere_radiance = sphere_radiance * transmittance + in_scatter;
 	}
 
-	// ¼ÆËãÊÓÏßµ½µØÇòµÄ¾àÀë¡¢½»µã
+	// è®¡ç®—è§†çº¿åˆ°åœ°çƒçš„è·ç¦»ã€äº¤ç‚¹
 	p = camera - earth_center;
   	p_dot_v = dot(p, view_direction);
   	p_dot_p = dot(p, p);
@@ -140,7 +140,7 @@ void main(){
   	vec3 ground_radiance = vec3(0.0);
 
 	if (distance_to_intersection > 0.0f) {
-		// ½»µã¡¢·¨Ïß
+		// äº¤ç‚¹ã€æ³•çº¿
 		vec3 point = camera + view_direction * distance_to_intersection;
 		vec3 normal = normalize(point - earth_center);
     	// Compute the radiance reflected by the ground.
