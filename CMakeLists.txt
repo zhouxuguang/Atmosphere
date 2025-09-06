@@ -109,16 +109,3 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/AtmosphereModel
     ${CMAKE_CURRENT_SOURCE_DIR}/Demo
 )
-
-# macOS 特定配置
-if(APPLE)
-    set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.example.Atmosphere")
-    set(MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}")
-    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION}")
-    set(MACOSX_BUNDLE_ICON_FILE "app.icns")
-    
-    # set_target_properties(${PROJECT_NAME} PROPERTIES
-    #     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist
-    #     MACOSX_BUNDLE ON
-    # )
-endif()
