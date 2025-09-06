@@ -3,6 +3,8 @@
 
 #include <QOpenGLFunctions_4_1_Core>
 #include <QOpenGLWidget>
+#include <QOpenGLDebugLogger>
+#include <QOpenGLDebugMessage>
 
 
 class QEvent;
@@ -45,9 +47,12 @@ protected:
 public slots:
     void update();
     void frameTimeout(float fps);
+    void handleLoggedMessage(const QOpenGLDebugMessage &message);
 
 private:
     OpenGLWidgetPrivate *m_private;
+    
+    QOpenGLDebugLogger *m_debugLogger = nullptr;
 };
 
 #endif // OPENGLWIDGET_H

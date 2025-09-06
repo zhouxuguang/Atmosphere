@@ -7,8 +7,6 @@
 #include <QTimer>
 #include <QKeyEvent>
 #include <QApplication>
-#include <QOpenGLDebugLogger>
-#include <QOpenGLDebugMessage>
 
 /**********************************
  * OpenGLWindowPrivate
@@ -43,6 +41,13 @@ OpenGLWidget::~OpenGLWidget(){
     delete m_private;
 }
 
+void OpenGLWidget::handleLoggedMessage(const QOpenGLDebugMessage &message) {
+    QString msg = QString("OpenGL: %1 (Severity: %2, Source: %3, Type: %4)")
+        .arg(message.message());
+    
+    qDebug().noquote() << msg;
+}
+
 /**********************************
  * OpenGLWidget Protected Method
  **********************************/
@@ -53,6 +58,29 @@ void OpenGLWidget::initializeGL(){
     GlobalContext::contextFunc = dynamic_cast<QOpenGLFunctions_4_1_Core*>(this);
     connect(this, SIGNAL(frameSwapped()), this, SLOT(update()));
     connect(this, SIGNAL(frameSwapped()), &m_private->m_frameTimer, SLOT(frameSwapped()));
+    
+    // 检查是否支持调试
+    bool hasDebug = false;
+    if (!context()->hasExtension("GL_KHR_debug")) {
+        qWarning() << "Debug output not supported!";
+        hasDebug = true;
+    }
+
+    // 创建并配置日志记录器
+    m_debugLogger = new QOpenGLDebugLogger(this);
+    if (hasDebug && m_debugLogger->initialize()) {
+        qDebug() << "Debug Logger initialized";
+        
+        // 连接消息信号到处理槽
+        connect(m_debugLogger, &QOpenGLDebugLogger::messageLogged,
+                this, &OpenGLWidget::handleLoggedMessage);
+        
+        // 开始记录消息（同步模式确保立即输出）
+        m_debugLogger->startLogging(QOpenGLDebugLogger::SynchronousLogging);
+        
+        // 启用所有消息
+        m_debugLogger->enableMessages();
+    }
 
     QOpenGLWidget::initializeGL();
 }

@@ -203,8 +203,8 @@ void Atmosphere::AtmosphereModel::init(unsigned int num_scattering_orders){
     // 创建帧缓冲
     F(OGL_Function);
     GLuint fbo;
-    f->glGenFramebuffers(1, &fbo);
-    f->glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+    GL_CALL(f->glGenFramebuffers(1, &fbo));
+    GL_CALL(f->glBindFramebuffer(GL_FRAMEBUFFER, fbo));
 
     // 预计算到纹理中
     vec3 lambdas{kLambdaR, kLambdaG, kLambdaB};
@@ -217,10 +217,9 @@ void Atmosphere::AtmosphereModel::init(unsigned int num_scattering_orders){
                num_scattering_orders);
 
     // 释放一些资源
-    f->glUseProgram(0);
-    f->glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    f->glDeleteFramebuffers(1, &fbo);
-    assert(f->glGetError() == 0);
+    GL_CALL(f->glUseProgram(0));
+    GL_CALL(f->glBindFramebuffer(GL_FRAMEBUFFER, 0));
+    GL_CALL(f->glDeleteFramebuffers(1, &fbo));
 }
 
 void Atmosphere::AtmosphereModel::setProgramUniforms(
@@ -231,33 +230,42 @@ void Atmosphere::AtmosphereModel::setProgramUniforms(
         GLuint single_mie_scattering_texture_unit) const{
     // 绑定四个纹理，用于渲染的需求
     F(OGL_Function);
-    f->glActiveTexture(GL_TEXTURE0 + transmittance_texture_unit);
-    f->glBindTexture(GL_TEXTURE_2D, transmittance_texture_->getTextureId());
+    GL_CALL(f->glActiveTexture(GL_TEXTURE0 + transmittance_texture_unit));
+    GL_CALL(f->glBindTexture(GL_TEXTURE_2D, transmittance_texture_->getTextureId()));
 
-    f->glActiveTexture(GL_TEXTURE0 + scattering_texture_unit);
-    f->glBindTexture(GL_TEXTURE_3D, scattering_texture_->getTextureId());
+    GL_CALL(f->glActiveTexture(GL_TEXTURE0 + scattering_texture_unit));
+    GL_CALL(f->glBindTexture(GL_TEXTURE_3D, scattering_texture_->getTextureId()));
 
-    f->glActiveTexture(GL_TEXTURE0 + irradiance_texture_unit);
-    f->glBindTexture(GL_TEXTURE_2D, irradiance_texture_->getTextureId());
+    GL_CALL(f->glActiveTexture(GL_TEXTURE0 + irradiance_texture_unit));
+    GL_CALL(f->glBindTexture(GL_TEXTURE_2D, irradiance_texture_->getTextureId()));
 
-    int location = f->glGetUniformLocation(program, "transmittance_texture");
+    int location = (f->glGetUniformLocation(program, "transmittance_texture"));
+    GL_CHECK();
     if(location == -1)qDebug() << "transmittance_texture error!";
-    f->glUniform1i(location,transmittance_texture_unit);
+    GL_CALL(f->glUniform1i(location,transmittance_texture_unit));
 
-    location = f->glGetUniformLocation(program, "scattering_texture");
+    location = (f->glGetUniformLocation(program, "scattering_texture"));
+    GL_CHECK();
     if(location == -1)qDebug() << "scattering_texture error!";
     f->glUniform1i(location,scattering_texture_unit);
+    GL_CHECK();
 
     location = f->glGetUniformLocation(program, "irradiance_texture");
+    GL_CHECK();
     if(location == -1)qDebug() << "irradiance_texture error!";
     f->glUniform1i(location,irradiance_texture_unit);
+    GL_CHECK();
 
     if (optional_single_mie_scattering_texture_ != nullptr) {
         f->glActiveTexture(GL_TEXTURE0 + single_mie_scattering_texture_unit);
+        GL_CHECK();
         f->glBindTexture(GL_TEXTURE_3D, optional_single_mie_scattering_texture_->getTextureId());
+        GL_CHECK();
         location = f->glGetUniformLocation(program, "single_mie_scattering_texture");
+        GL_CHECK();
         if(location == -1)qDebug() << "single_mie_scattering_texture error!";
         f->glUniform1i(location,single_mie_scattering_texture_unit);
+        GL_CHECK();
     }
 }
 
@@ -324,16 +332,21 @@ void Atmosphere::AtmosphereModel::precompute(
     F(OGL_Function);
     // 设置RBG和Alpha的混合模式,用于实现叠加操作
     f->glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+    GL_CHECK();
     f->glBlendFuncSeparate(GL_ONE, GL_ONE, GL_ONE, GL_ONE);
+    GL_CHECK();
 
     // 计算光学长度，并将其存储到transmittance_texture_中
     {
         f->glFramebufferTexture(
                     GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                     transmittance_texture_->getTextureId(), 0);
+        GL_CHECK();
         f->glDrawBuffer(GL_COLOR_ATTACHMENT0);
+        GL_CHECK();
         f->glViewport(0, 0, TRANSMITTANCE_TEXTURE_WIDTH,
                       TRANSMITTANCE_TEXTURE_HEIGHT);
+        GL_CHECK();
         compute_transmittance.use();
         drawQuad({});
         compute_transmittance.release();
@@ -344,10 +357,13 @@ void Atmosphere::AtmosphereModel::precompute(
     {
         f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                                 delta_irradiance_texture.getTextureId(), 0);
+        GL_CHECK();
         //f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1,
         //                        irradiance_texture_->getTextureId(), 0);
         f->glDrawBuffers(1, kDrawBuffers);
+        GL_CHECK();
         f->glViewport(0, 0, IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT);
+        GL_CHECK();
         compute_direct_irradiance.use();
         transmittance_texture_->bind(0);
         compute_direct_irradiance.setInt("transmittance_texture",0);
@@ -360,21 +376,28 @@ void Atmosphere::AtmosphereModel::precompute(
     {
         f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                                 delta_rayleigh_scattering_texture.getTextureId(), 0);
+        GL_CHECK();
         f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1,
                                 delta_mie_scattering_texture.getTextureId(), 0);
+        GL_CHECK();
         f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2,
                                 scattering_texture_->getTextureId(), 0);
+        GL_CHECK();
         // 是否将mie和rayleigh计算结果合并到一个纹理
         if (optional_single_mie_scattering_texture_ != nullptr) {
             f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3,
                                     optional_single_mie_scattering_texture_->getTextureId(),
                                     0);
+            GL_CHECK();
             f->glDrawBuffers(4, kDrawBuffers);
+            GL_CHECK();
         }
         else {
             f->glDrawBuffers(3, kDrawBuffers);
+            GL_CHECK();
         }
         f->glViewport(0, 0, SCATTERING_TEXTURE_WIDTH, SCATTERING_TEXTURE_HEIGHT);
+        GL_CHECK();
         compute_single_scattering.use();
         transmittance_texture_->bind(0);
         compute_single_scattering.setInt("transmittance_texture",0);
@@ -392,11 +415,17 @@ void Atmosphere::AtmosphereModel::precompute(
             // 计算特定(r,mu)接收的辐照度，存储到delta_scattering_density_texture中
             f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                                     delta_scattering_density_texture.getTextureId(), 0);
+            GL_CHECK();
             f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, 0, 0);
+            GL_CHECK();
             f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, 0, 0);
+            GL_CHECK();
             f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, 0, 0);
+            GL_CHECK();
             f->glDrawBuffer(GL_COLOR_ATTACHMENT0);
+            GL_CHECK();
             f->glViewport(0, 0, SCATTERING_TEXTURE_WIDTH, SCATTERING_TEXTURE_HEIGHT);
+            GL_CHECK();
             compute_scattering_density.use();
             transmittance_texture_->bind(0);
             delta_rayleigh_scattering_texture.bind3D(1);
@@ -419,10 +448,14 @@ void Atmosphere::AtmosphereModel::precompute(
             // 然后累加到irradiance_texture_
             f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                                     delta_irradiance_texture.getTextureId(), 0);
+            GL_CHECK();
             f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1,
                                     irradiance_texture_->getTextureId(), 0);
+            GL_CHECK();
             f->glDrawBuffers(2, kDrawBuffers);
+            GL_CHECK();
             f->glViewport(0, 0, IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT);
+            GL_CHECK();
             compute_indirect_irradiance.use();
             compute_indirect_irradiance.setInt("single_rayleigh_scattering_texture",0);
             compute_indirect_irradiance.setInt("single_mie_scattering_texture",1);
@@ -438,10 +471,14 @@ void Atmosphere::AtmosphereModel::precompute(
             // 累加到scattering_texture_
             f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                                     delta_multiple_scattering_texture.getTextureId(), 0);
+            GL_CHECK();
             f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1,
                                     scattering_texture_->getTextureId(), 0);
+            GL_CHECK();
             f->glDrawBuffers(2, kDrawBuffers);
+            GL_CHECK();
             f->glViewport(0, 0, SCATTERING_TEXTURE_WIDTH, SCATTERING_TEXTURE_HEIGHT);
+            GL_CHECK();
             compute_multiple_scattering.use();
             transmittance_texture_->bind(0);
             delta_scattering_density_texture.bind3D(1);
@@ -457,8 +494,11 @@ void Atmosphere::AtmosphereModel::precompute(
 
     // 将颜色缓冲附件都初始为原样
     f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, 0, 0);
+    GL_CHECK();
     f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, 0, 0);
+    GL_CHECK();
     f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, 0, 0);
+    GL_CHECK();
 }
 
 void Atmosphere::AtmosphereModel::drawQuad(const std::vector<bool> &enable_blend){
@@ -467,11 +507,13 @@ void Atmosphere::AtmosphereModel::drawQuad(const std::vector<bool> &enable_blend
     for (unsigned int i = 0; i < enable_blend.size(); ++i) {
         if (enable_blend[i]) {
             f->glEnablei(GL_BLEND, i);
+            GL_CHECK();
         }
     }
     quad->draw(nullptr);
     for (unsigned int i = 0; i < enable_blend.size(); ++i) {
         f->glDisablei(GL_BLEND, i);
+        GL_CHECK();
     }
 }
 
@@ -498,19 +540,29 @@ bool Atmosphere::AtmosphereModel::IsFramebufferRgbFormatSupported(
     F(OGL_Function);
     GLuint test_fbo = 0;
     f->glGenFramebuffers(1, &test_fbo);
+    GL_CHECK();
     f->glBindFramebuffer(GL_FRAMEBUFFER, test_fbo);
+    GL_CHECK();
     GLuint test_texture = 0;
     f->glGenTextures(1, &test_texture);
+    GL_CHECK();
     f->glBindTexture(GL_TEXTURE_2D, test_texture);
+    GL_CHECK();
     f->glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    GL_CHECK();
     f->glTexImage2D(GL_TEXTURE_2D, 0, half_precision ? GL_RGB16F : GL_RGB32F,
                     1, 1, 0, GL_RGB, GL_FLOAT, NULL);
+    GL_CHECK();
     f->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                               GL_TEXTURE_2D, test_texture, 0);
+    GL_CHECK();
     bool rgb_format_supported =
             f->glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
+    GL_CHECK();
     f->glDeleteTextures(1, &test_texture);
+    GL_CHECK();
     f->glDeleteFramebuffers(1, &test_fbo);
+    GL_CHECK();
     return rgb_format_supported;
 }
 

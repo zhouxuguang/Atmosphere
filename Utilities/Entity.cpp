@@ -63,9 +63,11 @@ void Entity::draw(ShaderProgram *shader) const{
     buffer->use();
     if(!indexed){
         f->glDrawArrays(GL_TRIANGLES,0,vertexCount);
+        GL_CHECK();
     }
     else{
         f->glDrawElements(GL_TRIANGLES,indexCount,GL_UNSIGNED_INT,0);
+        GL_CHECK();
     }
     buffer->release();
 }
