@@ -61,6 +61,36 @@ void Entity::draw(ShaderProgram *shader) const{
     Q_UNUSED(shader);
     //shader->setMatrix4("modelMatrix",modelMatrix);
     buffer->use();
+    
+    GLint currentProgram = 0;
+    glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
+    
+    glValidateProgram(currentProgram);
+    GLint valid;
+    glGetProgramiv(currentProgram, GL_VALIDATE_STATUS, &valid);
+    if (!valid) {
+        // 获取验证日志
+        GLchar log[1024] = {0};
+        glGetProgramInfoLog(currentProgram, sizeof(log), NULL, log);
+        qDebug() << "Shader validation failed:" << log;
+    }
+    
+    GLint currentVAO;
+    f->glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &currentVAO);
+    if (currentVAO == 0) {
+        DEBUG_BREAK();
+    }
+    
+    if (!f->glIsVertexArray(currentVAO)) {
+        DEBUG_BREAK();
+    }
+    
+    GLint eboBinding;
+    f->glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &eboBinding);
+    if (eboBinding == 0) {
+        DEBUG_BREAK();
+    }
+    
     if(!indexed){
         f->glDrawArrays(GL_TRIANGLES,0,vertexCount);
         GL_CHECK();

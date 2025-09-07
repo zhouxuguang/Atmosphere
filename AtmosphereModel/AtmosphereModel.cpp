@@ -575,5 +575,3 @@ QString Atmosphere::AtmosphereModel::getShaderFromFile(QString path){
     file.close();
     return context;
 }
-
-

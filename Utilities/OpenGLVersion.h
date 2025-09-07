@@ -2,6 +2,8 @@
 #define OPENGLVERSION_H
 #include <QOpenGLFunctions_4_1_Core>
 
+#include <QGlobalStatic>
+
 /***************************
  * OpenGL版本
  ***************************/
@@ -23,12 +25,21 @@ inline const char* glErrorString(GLenum err) {
     }
 }
 
+#ifdef Q_OS_WIN
+#include <intrin.h>
+#define DEBUG_BREAK() __debugbreak()
+#else
+#include <signal.h>
+#define DEBUG_BREAK() raise(SIGTRAP)
+#endif
+
 #define GL_CHECK() \
     do { \
         GLenum err; \
         while ((err = f->glGetError()) != GL_NO_ERROR) { \
             qDebug() << "[OpenGL] " << glErrorString(err) \
                      << " @" << __FILE__ << ":" << __LINE__; \
+        DEBUG_BREAK();                                       \
         } \
     } while (0)
 

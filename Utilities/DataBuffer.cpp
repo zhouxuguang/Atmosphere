@@ -30,15 +30,15 @@ Data::Data(uint loc,GLenum type,uint count,uint channel,uint row,const QOpenGLBu
 
     //get current ogl context
     F(OGL_Function);
-    f->glBindBuffer(GL_ARRAY_BUFFER, bufferid.bufferId());
-    f->glBufferData(GL_ARRAY_BUFFER, dataSize * bitSize, streamData, drawType);
+    GL_CALL(f->glBindBuffer(GL_ARRAY_BUFFER, bufferid.bufferId()));
+    GL_CALL(f->glBufferData(GL_ARRAY_BUFFER, dataSize * bitSize, streamData, drawType));
     for (uint i = 0; i < row; i++) {
         uint attrloc = loc + i;
-        f->glVertexAttribPointer(attrloc, channel, type, normalize,
-                                 bitSize * row * channel, (void*)(bitSize * i * channel));
+        GL_CALL(f->glVertexAttribPointer(attrloc, channel, type, normalize,
+                                 bitSize * row * channel, (void*)(bitSize * i * channel)));
         if (divisor >= 0)
-            f->glVertexAttribDivisor(attrloc, divisor);
-        f->glEnableVertexAttribArray(attrloc);
+            GL_CALL(f->glVertexAttribDivisor(attrloc, divisor));
+        GL_CALL(f->glEnableVertexAttribArray(attrloc));
     }
     bufferid.release();
 }
@@ -57,8 +57,8 @@ Data::Data(GLenum type, uint size, const QOpenGLBuffer &vbo, GLenum draw, void *
     drawType    = draw;
     streamData  = data;
     F(OGL_Function);
-    f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferid.bufferId());
-    f->glBufferData(GL_ELEMENT_ARRAY_BUFFER, dataSize * bitSize, streamData, drawType);
+    GL_CALL(f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferid.bufferId()));
+    GL_CALL(f->glBufferData(GL_ELEMENT_ARRAY_BUFFER, dataSize * bitSize, streamData, drawType));
 }
 
 void Data::updateAttrBuf(uint count, void *data, GLenum draw){
@@ -66,8 +66,8 @@ void Data::updateAttrBuf(uint count, void *data, GLenum draw){
     streamData = data;
     dataSize = count * channelCount * rowCount;
     F(OGL_Function);
-    f->glBindBuffer(GL_ARRAY_BUFFER, bufferid.bufferId());
-    f->glBufferSubData(GL_ARRAY_BUFFER, 0, dataSize * bitSize, streamData);
+    GL_CALL(f->glBindBuffer(GL_ARRAY_BUFFER, bufferid.bufferId()));
+    GL_CALL(f->glBufferSubData(GL_ARRAY_BUFFER, 0, dataSize * bitSize, streamData));
 }
 
 /*******************************************
@@ -88,9 +88,9 @@ DataBuffer::DataBuffer(uint nums){
 
 void DataBuffer::release(){
     F(OGL_Function);
-    f->glBindVertexArray(0);
-    f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    f->glBindBuffer(GL_ARRAY_BUFFER, 0);
+    GL_CALL(f->glBindVertexArray(0));
+    GL_CALL(f->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+    GL_CALL(f->glBindBuffer(GL_ARRAY_BUFFER, 0));
 }
 
 DataBuffer::~DataBuffer(){

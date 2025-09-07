@@ -65,6 +65,7 @@ void Demo::draw(){
     if(!_program)return;
     // 渲染场景
     _program->use();
+    
     _program->setVector3("camera",camera->getPosition());
     _program->setFloat("exposure",exposure_);
     _program->setInt("light_shaft",light_shaft);
@@ -300,11 +301,87 @@ void Demo::initModel(){
     if(!logger2.isEmpty())qDebug() << "Demo Fragment Shader::\n" << logger2;
 
     _program = new RawShaderProgram({vertex.shaderId(),
-                                     fragment.shaderId(),
-                                     model->getShader()->shaderId()});
+        fragment.shaderId(),
+        model->getShader()->shaderId()});
+    
+    // for test 调试纹理绑定的问题
+    // 获取最大纹理单元数
+    GLint maxUnits;
+    glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxUnits);
+    qDebug() << "Max texture units:" << maxUnits;
+    
+    // 检查的采样器列表
+    const char* samplerNames[] = {
+        "transmittance_texture",
+        "irradiance_texture",
+        "scattering_texture",
+        "single_mie_scattering_texture"
+    };
+    
+    GLenum expectedTypes[] = {
+        GL_TEXTURE_2D,
+        GL_TEXTURE_2D,
+        GL_TEXTURE_3D,
+        GL_TEXTURE_3D
+    };
+    
+    GLuint program = _program->programId();
+    
+    for (int i = 0; i < 0; i++) {
+        GLint location = glGetUniformLocation(program, samplerNames[i]);
+        if (location == -1) {
+            qWarning() << "Sampler not found:" << samplerNames[i];
+            continue;
+        }
+        
+        GLint unit;
+        glGetUniformiv(program, location, &unit);
+        
+        if (unit < 0 || unit >= maxUnits) {
+            qCritical() << "ERROR: Sampler" << samplerNames[i]
+                       << "bound to invalid unit" << unit;
+            continue;
+        }
+        
+        // 检查绑定的纹理类型
+        glActiveTexture(GL_TEXTURE0 + i);
+        
+        GLint boundTexture;
+        GLint boundType;
+        
+        // 检查 2D 绑定
+        glGetIntegerv(GL_TEXTURE_BINDING_2D, &boundTexture);
+        if (boundTexture != 0) boundType = GL_TEXTURE_2D;
+        
+        // 检查 3D 绑定
+        glGetIntegerv(GL_TEXTURE_BINDING_3D, &boundTexture);
+        if (boundTexture != 0) boundType = GL_TEXTURE_3D;
+        
+        if (boundType != expectedTypes[i]) {
+            qCritical() << "ERROR: Sampler" << samplerNames[i]
+                       << "expected" << expectedTypes[i]
+                       << "but bound to" << boundType
+                       << "at unit" << unit;
+        } else {
+            qDebug() << "Sampler" << samplerNames[i]
+                     << "correctly bound to unit" << unit
+                     << "(" << boundType << ")";
+        }
+    }
 
     // 设置一些uniform值
     _program->use();
+    
+//    for (int i = 0; i < 4; i++) {
+//        GLint location = glGetUniformLocation(program, samplerNames[i]);
+//        if (location == -1) {
+//            qWarning() << "Sampler not found:" << samplerNames[i];
+//            continue;
+//        }
+//        glActiveTexture(GL_TEXTURE0 + i);
+//        glUniform1i(location, i);
+//    }
+    
     model->setProgramUniforms(_program->programId(),0,1,2,3);
     _program->setVector3("earth_center",QVector3D(0.0,
                                                   0.0,

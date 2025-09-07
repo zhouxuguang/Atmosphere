@@ -23,6 +23,8 @@ public:
     void setVector3(const QString &param,QVector3D value);
     void setVector4(const QString &param,QVector4D value);
     void setMatrix4(const QString &param,QMatrix4x4 value);
+    
+    void link();
 private:
     GLuint id;
 };
