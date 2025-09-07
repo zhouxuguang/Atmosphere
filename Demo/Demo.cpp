@@ -171,6 +171,8 @@ bool Demo::setMie(bool use){
 }
 
 void Demo::initModel(){
+    F(OGL_Function);
+
     if(_program)delete _program;
     if(model)delete model;
     _program = nullptr;
@@ -307,7 +309,7 @@ void Demo::initModel(){
     // for test 调试纹理绑定的问题
     // 获取最大纹理单元数
     GLint maxUnits;
-    glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxUnits);
+    f->glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxUnits);
     qDebug() << "Max texture units:" << maxUnits;
     
     // 检查的采样器列表
@@ -328,14 +330,14 @@ void Demo::initModel(){
     GLuint program = _program->programId();
     
     for (int i = 0; i < 0; i++) {
-        GLint location = glGetUniformLocation(program, samplerNames[i]);
+        GLint location = f->glGetUniformLocation(program, samplerNames[i]);
         if (location == -1) {
             qWarning() << "Sampler not found:" << samplerNames[i];
             continue;
         }
         
         GLint unit;
-        glGetUniformiv(program, location, &unit);
+        f->glGetUniformiv(program, location, &unit);
         
         if (unit < 0 || unit >= maxUnits) {
             qCritical() << "ERROR: Sampler" << samplerNames[i]
@@ -344,17 +346,17 @@ void Demo::initModel(){
         }
         
         // 检查绑定的纹理类型
-        glActiveTexture(GL_TEXTURE0 + i);
+        f->glActiveTexture(GL_TEXTURE0 + i);
         
         GLint boundTexture;
         GLint boundType;
         
         // 检查 2D 绑定
-        glGetIntegerv(GL_TEXTURE_BINDING_2D, &boundTexture);
+        f->glGetIntegerv(GL_TEXTURE_BINDING_2D, &boundTexture);
         if (boundTexture != 0) boundType = GL_TEXTURE_2D;
         
         // 检查 3D 绑定
-        glGetIntegerv(GL_TEXTURE_BINDING_3D, &boundTexture);
+        f->glGetIntegerv(GL_TEXTURE_BINDING_3D, &boundTexture);
         if (boundTexture != 0) boundType = GL_TEXTURE_3D;
         
         if (boundType != expectedTypes[i]) {
@@ -389,7 +391,6 @@ void Demo::initModel(){
     _program->setVector2("sun_size",QVector2D(std::tan(kSunAngularRadius),
                                               std::cos(kSunAngularRadius)));
     _program->release();
-    F(OGL_Function);
     assert(f->glGetError() == 0);
 }
 

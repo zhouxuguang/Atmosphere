@@ -63,15 +63,15 @@ void Entity::draw(ShaderProgram *shader) const{
     buffer->use();
     
     GLint currentProgram = 0;
-    glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
+    f->glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
     
-    glValidateProgram(currentProgram);
+    f->glValidateProgram(currentProgram);
     GLint valid;
-    glGetProgramiv(currentProgram, GL_VALIDATE_STATUS, &valid);
+    f->glGetProgramiv(currentProgram, GL_VALIDATE_STATUS, &valid);
     if (!valid) {
         // 获取验证日志
         GLchar log[1024] = {0};
-        glGetProgramInfoLog(currentProgram, sizeof(log), NULL, log);
+        f->glGetProgramInfoLog(currentProgram, sizeof(log), NULL, log);
         qDebug() << "Shader validation failed:" << log;
     }
     
