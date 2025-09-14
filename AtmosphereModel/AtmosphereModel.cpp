@@ -7,6 +7,9 @@
 #include "Utilities/Geometry/Quad.h"
 #include "Utilities/OpenGLVersion.h"
 
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
+
 #define F(c) c *f = (GlobalContext::contextFunc)
 
 Atmosphere::AtmosphereModel::AtmosphereModel(
@@ -116,6 +119,8 @@ Atmosphere::AtmosphereModel::AtmosphereModel(
                 std::to_string(cos(max_sun_zenith_angle)) + ");\n" +
                 functions_glsl;
     };
+    
+    // rgba32 float的纹理
     transmittance_texture_ = new OpenGLTexture(TRANSMITTANCE_TEXTURE_WIDTH,
                                                TRANSMITTANCE_TEXTURE_HEIGHT);
     scattering_texture_ = new OpenGLTexture(
@@ -350,6 +355,15 @@ void Atmosphere::AtmosphereModel::precompute(
         compute_transmittance.use();
         drawQuad({});
         compute_transmittance.release();
+        
+        f->glBindTexture(GL_TEXTURE_2D, transmittance_texture_->getTextureId());
+        float* data = new float[TRANSMITTANCE_TEXTURE_WIDTH * TRANSMITTANCE_TEXTURE_HEIGHT * 4];
+        f->glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA32F, GL_FLOAT, data);
+        
+        stbi_write_hdr("transmittance.hdr", TRANSMITTANCE_TEXTURE_WIDTH, TRANSMITTANCE_TEXTURE_HEIGHT, 4, data);
+        
+        delete [] data;
+        
     }
 
     // 计算直接辐照度，存储到delta_irradiance_texture中
