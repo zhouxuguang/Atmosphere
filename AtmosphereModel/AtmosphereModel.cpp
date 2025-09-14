@@ -145,6 +145,7 @@ Atmosphere::AtmosphereModel::AtmosphereModel(
     std::string kAtmosphereShader =
             getShaderFromFile(":/AtmosphereModel/glsl/kAtmosphereShader.frag")
             .toStdString();
+
     std::string shader = glsl_header_factory_({kLambdaR, kLambdaG, kLambdaB})
             + "\n" + kAtmosphereShader;
 
@@ -356,10 +357,9 @@ void Atmosphere::AtmosphereModel::precompute(
         drawQuad({});
         compute_transmittance.release();
         
-        f->glBindTexture(GL_TEXTURE_2D, transmittance_texture_->getTextureId());
         float* data = new float[TRANSMITTANCE_TEXTURE_WIDTH * TRANSMITTANCE_TEXTURE_HEIGHT * 4];
-        f->glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA32F, GL_FLOAT, data);
-        
+        f->glReadPixels(0, 0, TRANSMITTANCE_TEXTURE_WIDTH, TRANSMITTANCE_TEXTURE_HEIGHT, GL_RGBA, GL_FLOAT, data);
+        GL_CHECK();
         stbi_write_hdr("transmittance.hdr", TRANSMITTANCE_TEXTURE_WIDTH, TRANSMITTANCE_TEXTURE_HEIGHT, 4, data);
         
         delete [] data;
@@ -369,11 +369,8 @@ void Atmosphere::AtmosphereModel::precompute(
     // 计算直接辐照度，存储到delta_irradiance_texture中
     // irradiance_texture_存储地面接收的天空辐照度
     {
-        f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
-                                delta_irradiance_texture.getTextureId(), 0);
+        f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, delta_irradiance_texture.getTextureId(), 0);
         GL_CHECK();
-        //f->glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1,
-        //                        irradiance_texture_->getTextureId(), 0);
         f->glDrawBuffers(1, kDrawBuffers);
         GL_CHECK();
         f->glViewport(0, 0, IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT);
