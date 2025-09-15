@@ -380,6 +380,13 @@ void Atmosphere::AtmosphereModel::precompute(
         compute_direct_irradiance.setInt("transmittance_texture",0);
         drawQuad({false});
         compute_direct_irradiance.release();
+
+		float* data = new float[IRRADIANCE_TEXTURE_WIDTH * IRRADIANCE_TEXTURE_HEIGHT * 4];
+		f->glReadPixels(0, 0, IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT, GL_RGBA, GL_FLOAT, data);
+		GL_CHECK();
+		stbi_write_hdr("delta_irradiance.hdr", IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT, 4, data);
+
+		delete[] data;
     }
 
     // 计算rayleigh单次内散射积分和mie单次内散射积分
