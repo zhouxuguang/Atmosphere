@@ -23,7 +23,7 @@ constexpr double kLengthUnitInMeters = 1000.0;
 Demo::Demo():
     use_constant_solar_spectrum_(false),
     use_ozone_(true),
-    use_combined_textures_(true),
+    use_combined_textures_(false),
     use_half_precision_(true),
     view_distance_meters_(9000.0),
     view_zenith_angle_radians_(1.47),

@@ -419,10 +419,51 @@ void Atmosphere::AtmosphereModel::precompute(
         compute_single_scattering.use();
         transmittance_texture_->bind(0);
         compute_single_scattering.setInt("transmittance_texture",0);
+        
+        uint8_t* data = new uint8_t[SCATTERING_TEXTURE_WIDTH * SCATTERING_TEXTURE_HEIGHT * 4];
+        
+        const char* name1 = "A";
+        const char* name2 = "B";
+        const char* name3 = "C";
+        const char* name4 = "D";
+        
         for (unsigned int layer = 0; layer < SCATTERING_TEXTURE_DEPTH; ++layer) {
             compute_single_scattering.setInt("layer",layer);// 一层一层计算到3D纹理中
             drawQuad({false, false, false, false});
+            
+            f->glReadBuffer(GL_COLOR_ATTACHMENT0 + 0);
+            f->glReadPixels(0, 0, SCATTERING_TEXTURE_WIDTH, SCATTERING_TEXTURE_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, data);
+            GL_CHECK();
+            
+            char szbuf[32] = {0};
+            sprintf(szbuf, "%s%d.png", name1, layer);
+            stbi_write_png(szbuf, SCATTERING_TEXTURE_WIDTH, SCATTERING_TEXTURE_HEIGHT, 4, data, SCATTERING_TEXTURE_WIDTH * 4);
+            
+            f->glReadBuffer(GL_COLOR_ATTACHMENT0 + 1);
+            f->glReadPixels(0, 0, SCATTERING_TEXTURE_WIDTH, SCATTERING_TEXTURE_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, data);
+            GL_CHECK();
+            
+            sprintf(szbuf, "%s%d.png", name2, layer);
+            stbi_write_png(szbuf, SCATTERING_TEXTURE_WIDTH, SCATTERING_TEXTURE_HEIGHT, 4, data, SCATTERING_TEXTURE_WIDTH * 4);
+            
+            f->glReadBuffer(GL_COLOR_ATTACHMENT0 + 2);
+            GL_CHECK();
+            f->glReadPixels(0, 0, SCATTERING_TEXTURE_WIDTH, SCATTERING_TEXTURE_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, data);
+            GL_CHECK();
+            
+            sprintf(szbuf, "%s%d.png", name3, layer);
+            stbi_write_png(szbuf, SCATTERING_TEXTURE_WIDTH, SCATTERING_TEXTURE_HEIGHT, 4, data, SCATTERING_TEXTURE_WIDTH * 4);
+            
+            f->glReadBuffer(GL_COLOR_ATTACHMENT0 + 3);
+            GL_CHECK();
+            f->glReadPixels(0, 0, SCATTERING_TEXTURE_WIDTH, SCATTERING_TEXTURE_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, data);
+            GL_CHECK();
+            
+            sprintf(szbuf, "%s%d.png", name4, layer);
+            stbi_write_png(szbuf, SCATTERING_TEXTURE_WIDTH, SCATTERING_TEXTURE_HEIGHT, 4, data, SCATTERING_TEXTURE_WIDTH * 4);
+            
         }
+        delete [] data;
         compute_single_scattering.release();
     }
 
@@ -554,6 +595,8 @@ double Atmosphere::AtmosphereModel::Interpolate(
 
 bool Atmosphere::AtmosphereModel::IsFramebufferRgbFormatSupported(
         bool half_precision){
+    return false;
+    
     // 检测是否支持RGB格式
     F(OGL_Function);
     GLuint test_fbo = 0;
