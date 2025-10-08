@@ -524,6 +524,14 @@ void Atmosphere::AtmosphereModel::precompute(
             delta_mie_scattering_texture.bind3D(1);
             delta_multiple_scattering_texture.bind3D(2);
             drawQuad({false, true});
+            
+            f->glReadBuffer(GL_COLOR_ATTACHMENT0);
+            float* data = new float[IRRADIANCE_TEXTURE_WIDTH * IRRADIANCE_TEXTURE_HEIGHT * 4];
+            f->glReadPixels(0, 0, IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT, GL_RGBA, GL_FLOAT, data);
+            GL_CHECK();
+            stbi_write_hdr("irradiance_texture.hdr", IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT, 4, data);
+            delete [] data;
+            
             compute_indirect_irradiance.release();
 
             // 计算多重散射，存储到delta_multiple_scattering_texture
