@@ -502,6 +502,7 @@ void Atmosphere::AtmosphereModel::precompute(
                 drawQuad({});
             }
             compute_scattering_density.release();
+            //f->glReadBuffer(GL_COLOR_ATTACHMENT0);
 
             // 计算间接辐照度，存储到delta_irradiance_texture中,
             // 然后累加到irradiance_texture_
@@ -524,13 +525,25 @@ void Atmosphere::AtmosphereModel::precompute(
             delta_mie_scattering_texture.bind3D(1);
             delta_multiple_scattering_texture.bind3D(2);
             drawQuad({false, true});
+
+            if (scattering_order == num_scattering_orders)
+            {
+				f->glReadBuffer(GL_COLOR_ATTACHMENT0);
+                GL_CHECK();
+				float* data = new float[IRRADIANCE_TEXTURE_WIDTH * IRRADIANCE_TEXTURE_HEIGHT * 4];
+				f->glReadPixels(0, 0, IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT, GL_RGBA, GL_FLOAT, data);
+				GL_CHECK();
+				stbi_write_hdr("delta_irradiance_texture.hdr", IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT, 4, data);
+
+				f->glReadBuffer(GL_COLOR_ATTACHMENT1);
+                GL_CHECK();
+				f->glReadPixels(0, 0, IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT, GL_RGBA, GL_FLOAT, data);
+				GL_CHECK();
+				stbi_write_hdr("irradiance_texture_.hdr", IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT, 4, data);
+
+				delete[] data;
+            }
             
-            f->glReadBuffer(GL_COLOR_ATTACHMENT0);
-            float* data = new float[IRRADIANCE_TEXTURE_WIDTH * IRRADIANCE_TEXTURE_HEIGHT * 4];
-            f->glReadPixels(0, 0, IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT, GL_RGBA, GL_FLOAT, data);
-            GL_CHECK();
-            stbi_write_hdr("irradiance_texture.hdr", IRRADIANCE_TEXTURE_WIDTH, IRRADIANCE_TEXTURE_HEIGHT, 4, data);
-            delete [] data;
             
             compute_indirect_irradiance.release();
 
